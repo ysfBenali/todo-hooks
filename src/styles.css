@@ -1,0 +1,17 @@
+.curved {
+    background-color: #ff3c00;
+    color : #ffff;  
+    text-align: center;
+}
+
+.curved svg{
+    display: block;
+}
+
+h1{
+    margin: 0;  
+}
+
+.curved.lower{
+    background-color: #ffff;
+}
