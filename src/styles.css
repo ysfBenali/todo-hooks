@@ -1,17 +1,23 @@
+.home{
+    display: flex;
+    align-items: center;
+
+}
+
 .curved {
-    background-color: #ff3c00;
-    color : #ffff;  
+    background-color: #00C3FF;
+    color: #ffff;
     text-align: center;
 }
 
-.curved svg{
+.curved svg {
     display: block;
 }
 
-h1{
-    margin: 0;  
+h1 {
+    margin: 0;
 }
 
-.curved.lower{
+.curved.lower {
     background-color: #ffff;
 }

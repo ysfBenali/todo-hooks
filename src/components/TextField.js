@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.input`
+export default styled.input `
     width : 30vw;
     box-sizing: border-box;  
     border: none;
