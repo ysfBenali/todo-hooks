@@ -1,17 +1,101 @@
-.curved {
-    background-color: #ff3c00;
-    color : #ffff;  
-    text-align: center;
+body {
+    /* fluide typographie */
+    font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
+  }
+  
+.home{
+    display: flex;
+    align-items: center;
 }
 
-.curved svg{
+.top {
+    
+    background-color: #00C3FF;
+    color: #ffff;
+    text-align: center;
+    height: 35vh;
+    min-height: 10rem;
+    
+
+}
+
+.top svg {
     display: block;
 }
 
-h1{
-    margin: 0;  
+h1 {
+    position: relative;
+    margin: 0 auto;
+    /* padding-top: 1rem ; */
+    font-size: 1.5em ;
+    top: 20%;
+    /* right: 2vw; */
+}
+h5,h6 {
+    margin: 0 auto;
 }
 
-.curved.lower{
+.bottom {
     background-color: #ffff;
+    /* padding: 2rem; */
 }
+
+.tasks {
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width : 60%;
+    margin: 4em auto;
+    
+    /* box-sizing: content-box; */
+    /* border-radius:6px;
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75); 
+    */
+   
+
+     /* @media (max-width: 680px) {
+        width: 85%;
+        /* min-width: 85%; */
+        /* height: 25%; */
+        /* transform: translate(-50%, -50%);  
+     }  */
+}
+@media screen and (max-width: 1200px) {
+    .tasks{
+        width: 80%;
+    }
+ }
+ @media screen and (max-width: 680px) {
+    .tasks{
+        width: 85%;
+    }
+ }
+
+ 
+.svg_icons{
+    transform: scale(1.8);
+  }
+
+  .react-datepicker-wrapper{
+      width:32%;
+      margin: 0em auto ; 
+      
+  }
+  @media (max-width: 1200px) {
+    .react-datepicker-wrapper{
+    width: 100%;
+    }
+ }
+
+  .react-datepicker-wrapper > div > input{
+      width: 100%;
+
+  }
+  .react-datepicker{
+    margin: 0em auto ; 
+
+  }

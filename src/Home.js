@@ -1,27 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
-import AddCircleButton from './custom-components/AddCircleButton'
+import AddCircleButton from './custom-components/AddCircleButton';
+import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { Form } from './components/Form';
 import './styles.css';
+import { Task } from './components/Task';
+import { useTodo } from './custom-hooks/useTodo';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 export const Home = () => {
+
+    const [showForm, setshowForm] = useState(false);
+    const { todos, addTodo, deleteTodo } = useTodo([]);
     return (
         <div>
-            <div className="curved">
+            <div className="top">
                 <h1>Todo for today</h1>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#ffff" fill-opacity="1"
-                        d="M0,192L60,192C120,192,240,192,360,192C480,192,600,192,720,208C840,224,960,256,1080,229.3C1200,203,1320,117,1380,74.7L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
-                    </path>
-                    
-                </svg>
-               
             </div>
-            <div className="curved lower">
-            <AddCircleButton>
-                    <AddCircleIcon style={{ fontSize: '10em' }} />
+            {!showForm &&
+                <AddCircleButton color="primary" aria-label="add to shopping cart" onClick={() => { setshowForm(!showForm) }}>
+                    <AddCircleIcon style={{ fontSize: '3rem' }} />
                 </AddCircleButton>
-            </div>
+            }
+            {showForm &&
+                <Form addTodo={todo => {
+                    addTodo(todo);
+                    setshowForm(false);
+                }} />}
+          {!showForm &&  <div className="tasks">
+                {
+                    todos.map((todos, index) => <Task />)
+                }
+            </div>}
+
         </div>
     )
 }
