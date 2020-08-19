@@ -1,3 +1,9 @@
+body {
+    /* fluide typographie */
+    font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
+  }
+  
 .home{
     display: flex;
     align-items: center;
@@ -15,9 +21,19 @@
 }
 
 h1 {
-    margin: 0;
+    position: relative;
+    margin: 0 auto;
+    /* padding-top: 1rem ; */
+    font-size: 1.5em ;
+    top: 3vw;
+    /* right: 2vw; */
 }
 
 .curved.lower {
     background-color: #ffff;
+    padding: 2rem;
 }
+
+.svg_icons{
+    transform: scale(1.8);
+  }

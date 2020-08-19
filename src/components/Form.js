@@ -9,35 +9,36 @@ const Wrapper = styled.div`
     height:10em;
     width: 70%;    
     margin : 0 auto;
-    top: 10vw;
     border:2px solid red;
-
-    @media (max-width: 1180px) {
+    box-sizing: content-box;
+    padding: 5px;
+    @media (max-width: 1250px) {
         width: 85%;    
         flex-direction: column;
         height:100%;
-
     }
+    padding-top: 3rem;
 
 `
 const Input = styled.input`
-    // display: inline-block;    
-    width: 32%;
+ display: inline-block;    
+    width: 30%;
     box-sizing : border-box;
-    height: 3.5em;
-    margin: 0 auto;
-    @media (max-width: 1180px) {
+    height: 2.5rem;
+    margin : .9rem ;
+        /* margin: 0 auto; */
+
+    @media (max-width: 1250px) {
        width: 90%;
-       margin : 2em 1em 1.5em 0;
+       margin : .9rem ;
     }
 `
 
 const Button = styled.button`
     display: block;   
-    margin: auto;
-    @media (max-width: 1180px) {
-         display: block;  
-         width : 30%;    
+    margin: 0 auto;
+    @media (max-width: 1250px) {
+         /* width : 30%;     */
          margin : 2em 1em 1.5em 0;
      }
 `
@@ -45,11 +46,13 @@ const Button = styled.button`
 
 export const Form = () => {
     return (
-        <Wrapper>
+        <form>
+            <Wrapper>
             <Input />
             <Input />
             <Input />
             <Button> Add Task </Button>
-        </Wrapper>
+            </Wrapper>
+        </form>
     )
 }

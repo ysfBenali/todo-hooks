@@ -13,4 +13,5 @@ export default styled(IconButton)
         background-color: #ffff;
         transform: scale(1.1);
     }
+    font-size: 20px;
 `;

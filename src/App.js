@@ -7,20 +7,18 @@ import { TodoList } from './TodoList';
 import { Home } from './Home';
 import { StylesProvider } from '@material-ui/styles';
 
+
+
 function App() {
 
-    const { todos, addTodo, deleteTodo } = useTodoState([]);
+  const { todos, addTodo, deleteTodo } = useTodoState([]);
 
-    return ( <
-        StylesProvider injectFirst >
-        <
-        div className = "App" >
-        <
-        Home / >
-        <
-        /div> <
-        /StylesProvider>
-    );
+  return (<StylesProvider injectFirst >
+    <div className="App" >
+      <Home />
+    </div>
+  </StylesProvider>
+  );
 }
 
 export default App;
