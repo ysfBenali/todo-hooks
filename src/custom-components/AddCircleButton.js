@@ -7,11 +7,14 @@ export default styled(IconButton)
     color: #EA4C12;
     background-color: #ffff;
     position: absolute;
-    top: 13vw;
-    right: 15vw;
+    display: block!important;
+    left: 80%;
+    transform: translateY(-50%) translateX(-50%);
+
+    // bottom: 0;
+    // right: 15vw;
     &:hover {
         background-color: #ffff;
-        transform: scale(1.1);
+       // transform: scale(1.1);
     }
-    font-size: 20px;
 `;
