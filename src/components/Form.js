@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import styled, { css } from 'styled-components';
 import DatePicker from "react-datepicker";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+import { useForm } from '../custom-hooks/useForm';
 
 const Wrapper = styled.div`
     position: absolute;
@@ -59,14 +63,7 @@ const Input = styled.input`
 const Select = styled.select`
     ${baseInputStyles}
 `
-// const Button = styled.button`
-//     display: block;   
-//     margin: 0 auto;
-//     // font-size: 0.2em!important;
-//     @media (max-width: 1298px) {
-//          margin : 2em 1em 1.5em 0;
-//      }
-// `
+
 
 const Button = styled.button`
     font-size: 14px;
@@ -91,19 +88,37 @@ const Button = styled.button`
 
 
 
-export const Form = () => {
+const Form = ({addTodo}) => {
+    
+    const [values, handleChange] = useForm({ task: '', type: 'Code' });
+    const [date, setStartDate] = useState(new Date());
+    let history = useHistory();
+
     return (
-        <form>
+        <form onSubmit={(event) => {
+            event.preventDefault();
+            console.log("Submit");
+            addTodo({...values , date });
+            history.push('/dashboard');
+
+           // reset();
+        }}>
             <Wrapper>
-                <Input />
-                <Select name="type">
-                    <option value="code">Code</option>
-                    <option value="design">Design</option>
-                    <option value="gym">Gym</option>
-                    <option value="other">Other</option>
+                <Input name='task'
+                    placeholder='Task'
+                    value={values.task}
+                    onChange={handleChange} />
+                <Select name='type' value={values.type} onChange={handleChange} >
+                    <option value='code'>Code</option>
+                    <option value='design'>Design</option>
+                    <option value='gym'>Gym</option>
+                    <option value='other'>Other</option>
                 </Select>
                 {/* <Input /> */}
-                <DatePicker customInput={<Input />} />
+                <DatePicker customInput={<Input />}
+                    selected={date}
+                    onChange={date => setStartDate(date)}
+                />
                 {/* <DatePicker
                customInput={<Input />}
                 /> */}
@@ -112,3 +127,6 @@ export const Form = () => {
         </form>
     )
 }
+
+
+export default Form;

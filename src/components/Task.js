@@ -6,6 +6,7 @@ import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import Badge from '../custom-components/Badge';
 
 const SingleTask = styled.div`
     position: relative; 
@@ -17,9 +18,9 @@ const SingleTask = styled.div`
     align-items: space-around;
     
     margin:10px auto;
-    // top: 70%;  
-    // left: 50%; 
-    // transform: translate(-50%, -50%); 
+     /* top: 70%;   */
+     /* left: 50%;  */
+     /* transform: translate(-50%, -50%);  */
     
     height: 10rem;
     width: 60%;
@@ -45,16 +46,13 @@ const SingleTask = styled.div`
      &:hover {
         transform: scale(1.1);
     }
-    
 `
 const Start = styled.div`
     display: flex;
     flex: 1;
-    // background-color: red;
+     /* background-color: red; */
     align-items: center;
     justify-content: center;
-    
-
 `
 
 
@@ -65,29 +63,29 @@ const Middle = styled.div`
     justify-content: center;
 
     align-items: flex-start;
-    // background-color: green;
+     /* background-color: green; */
     margin-bottom: 1rem;
 
     word-break:break-all;
-    
-    `
+`
 const Top = styled.span`
-    display flex;
+    display: flex;
     flex:1;
-    // background-color: blue;
+     /* background-color: blue; */
     align-items: center;
 `
 const Bottom = styled.span`
-    display flex;
+    display: flex;
     flex:1;
-    // background-color: gray;
+     /* background-color: gray; */
     align-items: center;
-// margin-bottom: 1em;
-`
+ /* margin-bottom: 1em; */
+ `
+
 const End = styled.div`
     background-color: pink;
 `
-export const Task = () => {
+export const Task = ({ index, deleteTodo, todo }) => {
     return (
         <SingleTask>
             <Start>
@@ -101,17 +99,19 @@ export const Task = () => {
             <Middle>
                 {/* <div> */}
                 <Top>
-                    <h5>Start to look online</h5>
+                    <h5>{todo.task}</h5>
                 </Top>
                 <Bottom>
-                    <h6>jjjfgdgdfgfdgdgggdfdfd</h6>
+                    <Badge>
+                        <span>{todo.type}</span>
+                    </Badge>
                 </Bottom>
                 {/* </div> */}
 
             </Middle>
             <End>
                 <IconButton >
-                    <ClearIcon style={{ fontSize: 35, color: 'red' }} />
+                    <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => deleteTodo(index)} />
                 </IconButton>
 
             </End>

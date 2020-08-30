@@ -6,10 +6,12 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Form } from './components/Form';
 import './styles.css';
 import { Task } from './components/Task';
-
+import { useTodo } from './custom-hooks/useTodo';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 export const Home = () => {
 
     const [showForm, setshowForm] = useState(false);
+    const { todos, addTodo, deleteTodo } = useTodo([]);
     return (
         <div>
             <div className="top">
@@ -20,12 +22,16 @@ export const Home = () => {
                     <AddCircleIcon style={{ fontSize: '3rem' }} />
                 </AddCircleButton>
             }
-            {showForm && <Form />}
-            <div className="tasks">
-                {/* <Task/>
-                <Task/>
-                <Task/> */}
-            </div>
+            {showForm &&
+                <Form addTodo={todo => {
+                    addTodo(todo);
+                    setshowForm(false);
+                }} />}
+          {!showForm &&  <div className="tasks">
+                {
+                    todos.map((todos, index) => <Task />)
+                }
+            </div>}
 
         </div>
     )
