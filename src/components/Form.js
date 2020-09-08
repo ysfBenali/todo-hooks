@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import styled, { css } from 'styled-components';
-import DatePicker from "react-datepicker";
-import { Redirect } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-
+import DatePicker from 'react-datepicker';
+import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
+
 
 const Wrapper = styled.div`
     position: absolute;
@@ -88,7 +88,7 @@ const Button = styled.button`
 
 
 
-const Form = ({addTodo}) => {
+const Form = ({dispatch}) => {
     
     const [values, handleChange] = useForm({ task: '', type: 'Code' });
     const [date, setStartDate] = useState(new Date());
@@ -98,7 +98,7 @@ const Form = ({addTodo}) => {
         <form onSubmit={(event) => {
             event.preventDefault();
             console.log("Submit");
-            addTodo({...values , date });
+            // dispatch({type:{...values , date },type :'ADD_TODO');
             history.push('/dashboard');
 
            // reset();
