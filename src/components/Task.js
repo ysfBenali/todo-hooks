@@ -7,6 +7,7 @@ import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import Badge from '../custom-components/Badge';
+import { FaRegEdit } from "react-icons/fa";
 
 const SingleTask = styled.div`
     position: relative; 
@@ -64,7 +65,7 @@ const Middle = styled.div`
 
     align-items: flex-start;
      /* background-color: green; */
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
 
     word-break:break-all;
 `
@@ -84,6 +85,7 @@ const Bottom = styled.span`
 
 const End = styled.div`
     background-color: pink;
+    flex-direction: column;
 `
 export const Task = ({ index, deleteTodo, todo }) => {
     return (
@@ -113,7 +115,10 @@ export const Task = ({ index, deleteTodo, todo }) => {
                 <IconButton >
                     <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => deleteTodo(index)} />
                 </IconButton>
-
+                {/* edit div */}
+                <div style={{ marginTop: '3rem' , color: '#1f97fa',fontSize: 25}} >
+                    <FaRegEdit  />
+                </div>
             </End>
 
             {/* <div className="title"></div>
