@@ -4,7 +4,7 @@ import { Task } from './Task';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Link } from 'react-router-dom';
 
-const Dashboard = ({todos, deleteTodo}) => {
+const Dashboard = ({todos}) => {
     const [showForm, setshowForm] = useState(false);
 
     return (
@@ -15,7 +15,7 @@ const Dashboard = ({todos, deleteTodo}) => {
                 </AddCircleButton>
             </Link>
             <div className='tasks'>
-                {todos.map((todo, index) => <Task key={index} index={index} todo={todo} deleteTodo={deleteTodo}/>)}
+                {todos.map((todo, index) => <Task key={index} index={index} todo={todo} />)} {/*deleteTodo={deleteTodo} was here*/}
             </div>
         </>
     )

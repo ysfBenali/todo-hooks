@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Form from './Form';
+import { Context } from '../App';
 
-const Home = ({addTodo}) => {
+
+
+const Home = () => {
+    const dispatch = useContext(Context);
 
     return (
-        <Form addTodo={todo => { addTodo(todo) }} />
+        // <Form addTodo={todo => { addTodo(todo) }} />
+        <Form dispatch={dispatch}/>
     )
 }
 
