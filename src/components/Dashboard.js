@@ -15,7 +15,7 @@ const Dashboard = ({todos}) => {
                 </AddCircleButton>
             </Link>
             <div className='tasks'>
-                {todos.map((todo, index) => <Task key={index} index={index} todo={todo} />)} {/*deleteTodo={deleteTodo} was here*/}
+                {todos.map((todo, index) => <Task key={index} todo={todo} />)} {/*deleteTodo={deleteTodo} was here*/}
             </div>
         </>
     )

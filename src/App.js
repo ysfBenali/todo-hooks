@@ -10,14 +10,33 @@ import './styles.css';
 
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
+const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED';
+const EDIT_TODO = 'EDIT_TODO';
+
 
 function appReducer(state, action) {
-  switch (action.type) {
+
+  const { type, payload } = action;
+
+  switch (type) {
     case ADD_TODO:
-      console.log(state);
-      // return [...state, action.payload];
+      console.log(payload);
+      return [...state, payload];
     case DELETE_TODO:
-      return [...state];
+      return state.filter(todo => todo.id !== payload);
+    case TOGGLE_COMPLETED:
+      return state.map(todo => {
+        if (todo.id === payload) {
+          return {
+            ...todo,
+            completed: !todo.completed
+          };
+        }
+        return todo;
+      });
+      case EDIT_TODO:
+        console.log(payload);
+        return [...state];
     default:
       return [...state];
   }
@@ -41,8 +60,9 @@ function App() {
           <Router>
             <Navbar />
             <Switch>
-              <Route path='/' exact component={() => <Home addTodo={addTodo} />} />
-              <Route path='/create' component={() => <Home addTodo={addTodo} />} />
+              <Route path='/' exact component={() => <Home/>} />
+              <Route path='/create' component={() => <Home/>} />
+              <Route path='/edit/:id' component={<Home/>} />
               {/* <Route path='/dashboard' component={() => <Dashboard todos={todos} deleteTodo={deleteTodo} />} /> */}
               <Route path='/dashboard' component={() => <Dashboard todos={state} />} />
 
