@@ -4,8 +4,9 @@ import { Context } from '../App';
 
 
 
-const Home = () => {
+const Home = ({ match }) => {
     const dispatch = useContext(Context);
+        console.log(match.params);
 
     return (
         // <Form addTodo={todo => { addTodo(todo) }} />

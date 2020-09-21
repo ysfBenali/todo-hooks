@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import styled, { css } from 'styled-components';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
@@ -8,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import Badge from '../custom-components/Badge';
 import { FaRegEdit } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { Context } from '../App';
 
 const SingleTask = styled.div`
     position: relative; 
@@ -87,15 +89,19 @@ const End = styled.div`
     background-color: pink;
     flex-direction: column;
 `
-export const Task = ({ index, deleteTodo, todo }) => {
+
+export const Task = ({ index, todo }) => {
+    const dispatch = useContext(Context);
+
     return (
         <SingleTask>
             <Start>
                 {/* <input type="radio"></input> */}
                 <Checkbox
                     icon={<CircleUnchecked style={{ fontSize: 35, color: 'green' }} />}
+                    checked={todo.completed}
                     checkedIcon={<CircleChecked style={{ fontSize: 35, color: 'green' }} />}
-
+                    onClick={ () => dispatch({type: 'TOGGLE_COMPLETED', payload: todo.id }) }
                 />
             </Start>
             <Middle>
@@ -113,12 +119,14 @@ export const Task = ({ index, deleteTodo, todo }) => {
             </Middle>
             <End>
                 <IconButton >
-                    <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => deleteTodo(index)} />
+                    <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => dispatch({type: 'DELETE_TODO', payload: todo.id })} />
                 </IconButton>
                 {/* edit div */}
-                <div style={{ marginTop: '3rem' , color: '#1f97fa',fontSize: 25}} >
-                    <FaRegEdit  />
-                </div>
+                <Link to={`/edit/${todo.id}`}>
+                    <div style={{ marginTop: '3rem' , color: '#1f97fa',fontSize: 25}} onClick={() => dispatch({type: 'EDIT_TODO', payload: todo })}>
+                        <FaRegEdit  />
+                    </div>
+                </Link>
             </End>
 
             {/* <div className="title"></div>

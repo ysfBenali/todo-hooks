@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
+import {useUID} from 'react-uid';
 
 
 const Wrapper = styled.div`
@@ -89,8 +90,8 @@ const Button = styled.button`
 
 
 const Form = ({dispatch}) => {
-    
-    const [values, handleChange] = useForm({ task: '', type: 'Code' });
+    const uid = useUID();  
+    const [values, handleChange] = useForm({ id: uid, task: '', type: 'Code',completed: false });
     const [date, setStartDate] = useState(new Date());
     let history = useHistory();
 
@@ -98,7 +99,7 @@ const Form = ({dispatch}) => {
         <form onSubmit={(event) => {
             event.preventDefault();
             console.log("Submit");
-            // dispatch({type:{...values , date },type :'ADD_TODO');
+            dispatch({payload : {...values , date },type : 'ADD_TODO'});
             history.push('/dashboard');
 
            // reset();
