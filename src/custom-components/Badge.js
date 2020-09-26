@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 import { StylesProvider } from '@material-ui/styles';
 
-export default styled.div`
-    background-color : purple;
+const colorType= {
+    code : 'purple',
+    design : 'green',
+    gym : 'orange',
+    other : 'black'
+ };
+
+
+export default styled.span`
+    background-color : ${props => colorType[props.type]};
     /* margin: 0 auto; */
     /* font-size: .9em; */
     /* align-items:center; */
     /* padding: 10px; */
-    width: 3.5em;
+    width: 4em;
     justify-content:center;
     font-size: medium;
     border-radius: 25px;
