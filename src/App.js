@@ -4,9 +4,11 @@ import './App.css';
 import { StylesProvider } from '@material-ui/styles';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
+import AddTodo from './components/AddTodo';
 import Home from './components/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './styles.css';
+import EditTodo from './components/EditTodo';
 
 const ADD_TODO = 'ADD_TODO';
 const DELETE_TODO = 'DELETE_TODO';
@@ -34,9 +36,15 @@ function appReducer(state, action) {
         }
         return todo;
       });
-      case EDIT_TODO:
-        console.log(payload);
-        return [...state];
+    case EDIT_TODO:
+      const updateTodo = payload;
+      const updateTodos = state.map(todo => {
+        if (todo.id === updateTodo.id) {
+          return updateTodo;
+        }
+        return todo;
+      })
+      return  updateTodos;
     default:
       return [...state];
   }
@@ -54,17 +62,19 @@ function App() {
   const [state, dispatch] = useReducer(appReducer, []);
   // const { todos, addTodo, deleteTodo } = useTodo([]);
   return (
-    <Context.Provider value={dispatch}>
+    <Context.Provider value={{ dispatch: dispatch, todos: state }}>
       <StylesProvider injectFirst >
         <div className="App">
           <Router>
             <Navbar />
             <Switch>
-              <Route path='/' exact component={() => <Home/>} />
-              <Route path='/create' component={() => <Home/>} />
-              <Route path='/edit/:id' component={<Home/>} />
+              <Route path='/' exact component={() => <AddTodo />} />
+              <Route path='/create' component={() => <AddTodo />} />
+              <Route path='/edit/:id'>
+                <EditTodo />
+              </Route>
               {/* <Route path='/dashboard' component={() => <Dashboard todos={todos} deleteTodo={deleteTodo} />} /> */}
-              <Route path='/dashboard' component={() => <Dashboard todos={state} />} />
+              <Route path='/dashboard' component={() => <Dashboard />} />
 
             </Switch>
           </Router>

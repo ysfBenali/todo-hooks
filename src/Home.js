@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import AddCircleButton from './custom-components/AddCircleButton';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { Form } from './components/Form';
+import { AddTodo } from './components/AddTodo';
 import './styles.css';
 import { Task } from './components/Task';
 import { useTodo } from './custom-hooks/useTodo';
@@ -24,7 +24,7 @@ export const Home = () => {
                 </AddCircleButton>
             }
             {showForm &&
-                <Form addTodo={todo => {
+                <AddTodo addTodo={todo => {
                     addTodo(todo);
                     setshowForm(false);
                 }} />}
