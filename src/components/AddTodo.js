@@ -93,7 +93,7 @@ const Button = styled.button`
 const AddTodo = () => {
     const { dispatch, todos } = useContext(Context);
     const uid = useUID();
-    const [values, handleChange] = useForm({ id: uid, task: '', type: 'Code', completed: false });
+    const [values, handleChange] = useForm({ id: uid, task: '', type: 'code', completed: false });
     const [date, setStartDate] = useState(new Date());
     let history = useHistory();
 

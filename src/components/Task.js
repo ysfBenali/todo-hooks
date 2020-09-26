@@ -91,7 +91,7 @@ const End = styled.div`
 `
 
 export const Task = ({ index, todo }) => {
-    const {dispatch} = useContext(Context);
+    const { dispatch } = useContext(Context);
 
     return (
         <SingleTask>
@@ -101,30 +101,27 @@ export const Task = ({ index, todo }) => {
                     icon={<CircleUnchecked style={{ fontSize: 35, color: 'green' }} />}
                     checked={todo.completed}
                     checkedIcon={<CircleChecked style={{ fontSize: 35, color: 'green' }} />}
-                    onClick={ () => dispatch({type: 'TOGGLE_COMPLETED', payload: todo.id }) }
+                    onClick={() => dispatch({ type: 'TOGGLE_COMPLETED', payload: todo.id })}
                 />
             </Start>
             <Middle>
-                {/* <div> */}
                 <Top>
                     <h5>{todo.task}</h5>
                 </Top>
                 <Bottom>
-                    <Badge>
-                        <span>{todo.type}</span>
+                    <Badge type={todo.type}>
+                        {todo.type}
                     </Badge>
                 </Bottom>
-                {/* </div> */}
-
             </Middle>
             <End>
                 <IconButton >
-                    <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => dispatch({type: 'DELETE_TODO', payload: todo.id })} />
+                    <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })} />
                 </IconButton>
                 {/* edit div */}
                 <Link to={`/edit/${todo.id}`}>
-                    <div style={{ marginTop: '3rem' , color: '#1f97fa',fontSize: 25}} onClick={() => dispatch({type: 'EDIT_TODO', payload: todo })}>
-                        <FaRegEdit  />
+                    <div style={{ marginTop: '3rem', color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: 'EDIT_TODO', payload: todo })}>
+                        <FaRegEdit />
                     </div>
                 </Link>
             </End>
