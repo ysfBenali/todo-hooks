@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AddCircleButton from '../custom-components/AddCircleButton';
 import { Task } from './Task';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Link } from 'react-router-dom';
+import { Context } from '../App';
 
-const Dashboard = ({todos}) => {
+const Dashboard = () => {
+
+    const {todos} = useContext(Context);
     const [showForm, setshowForm] = useState(false);
 
     return (
         <>
             <Link to='/create'>
-                <AddCircleButton color='primary' aria-label='add to shopping cart' onClick={() => { setshowForm(!showForm) }}>
+                <AddCircleButton color='primary' onClick={() => { setshowForm(!showForm) }}>
                     <AddCircleIcon style={{ fontSize: '3rem' }} />
                 </AddCircleButton>
             </Link>
             <div className='tasks'>
-                {todos.map((todo, index) => <Task key={index} todo={todo} />)} {/*deleteTodo={deleteTodo} was here*/}
+                {todos.map((todo, index) => <Task key={index} index={index} todo={todo} />)} 
             </div>
         </>
     )

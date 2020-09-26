@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import styled, { css } from 'styled-components';
 import DatePicker from 'react-datepicker';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
-import {useUID} from 'react-uid';
+import { useParams } from 'react-router-dom';
+import { Context } from '../App';
 
 
 const Wrapper = styled.div`
@@ -89,45 +90,58 @@ const Button = styled.button`
 
 
 
-const Form = ({dispatch}) => {
-    const uid = useUID();  
-    const [values, handleChange] = useForm({ id: uid, task: '', type: 'Code',completed: false });
-    const [date, setStartDate] = useState(new Date());
+const EditTodo = () => {
+    const [selectedTodo, setSelectedTodo] = useState({ task: '', type: 'Code', completed: false, date: new Date() });
+    // const [selectedTodo, handleChange] = useForm({ task: '', type: 'Code',completed: false, date: new Date() });
+    // const [date, setStartDate] = useState(new Date());
+    const { dispatch, todos } = useContext(Context);
+    const { id } = useParams();
     let history = useHistory();
 
-    return (
-        <form onSubmit={(event) => {
-            event.preventDefault();
-            console.log("Submit");
-            dispatch({payload : {...values , date },type : 'ADD_TODO'});
-            history.push('/dashboard');
+    useEffect(() => {
+        const selectedTodo = todos.find(todo => todo.id === id);
+        setSelectedTodo(selectedTodo);
+    }, [id, todos])
 
-           // reset();
-        }}>
+    const handleChange = (e) => {
+        setSelectedTodo({ ...selectedTodo, [e.target.name]: e.target.value });
+        // console.log(e.target.name);
+    }
+    const handleDateChange = (date) => {
+        setSelectedTodo({ ...selectedTodo, 'date': date });
+        // console.log(selectedTodo);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch({ payload: selectedTodo, type: 'EDIT_TODO' });
+        history.push('/dashboard');
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
             <Wrapper>
                 <Input name='task'
                     placeholder='Task'
-                    value={values.task}
-                    onChange={handleChange} />
-                <Select name='type' value={values.type} onChange={handleChange} >
+                    value={selectedTodo.task}
+                    onChange={handleChange}
+                />
+                <Select name='type' value={selectedTodo.type} onChange={handleChange}>
                     <option value='code'>Code</option>
                     <option value='design'>Design</option>
                     <option value='gym'>Gym</option>
                     <option value='other'>Other</option>
                 </Select>
-                {/* <Input /> */}
                 <DatePicker customInput={<Input />}
-                    selected={date}
-                    onChange={date => setStartDate(date)}
+                    name='date'
+                    selected={selectedTodo.date}
+                    onChange={handleDateChange}
                 />
-                {/* <DatePicker
-               customInput={<Input />}
-                /> */}
-                <Button> Add Task </Button>
+                <Button> Edit Task </Button>
             </Wrapper>
         </form>
     )
 }
 
 
-export default Form;
+export default EditTodo;

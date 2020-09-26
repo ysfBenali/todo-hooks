@@ -91,7 +91,7 @@ const End = styled.div`
 `
 
 export const Task = ({ index, todo }) => {
-    const dispatch = useContext(Context);
+    const {dispatch} = useContext(Context);
 
     return (
         <SingleTask>
