@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import styled, { css } from 'styled-components';
 import DatePicker from 'react-datepicker';
+import Button from '../custom-components/Button';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
@@ -10,7 +11,7 @@ import { Context } from '../App';
 
 
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     position: absolute;
     left: 50%;
     // top:30%;
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
 
     width: 70%;    
     margin : 0 auto;
+    margin-top : -2rem;
     box-sizing: content-box;
     padding: 0.4em;
     @media (max-width: 1200px) {
@@ -67,31 +69,13 @@ const Select = styled.select`
     ${baseInputStyles}
 `
 
-const Button = styled.button`
-    font-size: 14px;
-    margin: 0 auto;
-    border-radius: 2em;
-    padding: 0.75em 1.5em;
-    cursor: pointer;
-    background: none;
-    color: darken(#4fc08d, 20%);
-    border: 1px solid;
-    letter-spacing: 1px;
-    font-family: $font-family;
-    color: #4fc08d;
-    border: #4fc08d 1px solid;
-    transition: 250ms ease-out;
-    &:hover, &:focus {
-    color: #fff;
-    background: #4fc08d;
-    outline: none;
-    }
-`
-
+const theme = {
+     bg: "#4fc08d"
+}
 
 
 const AddTodo = () => {
-    const { dispatch, todos } = useContext(Context);
+    const { dispatch } = useContext(Context);
     const uid = useUID();
     const [values, handleChange] = useForm({ id: uid, task: '', type: 'code', completed: false });
     const [date, setStartDate] = useState(new Date());
@@ -125,7 +109,7 @@ const AddTodo = () => {
                     selected={date}
                     onChange={handleDateChange}
                 />
-                <Button> Add Task </Button>
+                <Button theme={theme}> Add Task </Button>
             </Wrapper>
         </form>
     )

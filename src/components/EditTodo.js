@@ -69,7 +69,8 @@ const Select = styled.select`
 
 const Button = styled.button`
     font-size: 14px;
-    margin: 0 auto;
+    margin: .5em auto;
+    margin-bottom : 1.5rem;
     border-radius: 2em;
     padding: 0.75em 1.5em;
     cursor: pointer;
@@ -79,7 +80,7 @@ const Button = styled.button`
     letter-spacing: 1px;
     font-family: $font-family;
     color: #4fc08d;
-    border: #4fc08d 1px solid;
+    border: #4fc08d 2.5px solid;
     transition: 250ms ease-out;
     &:hover, &:focus {
     color: #fff;
