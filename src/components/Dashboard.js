@@ -5,7 +5,7 @@ import { Task } from './Task';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Button from '../custom-components/Button';
 import { Link } from 'react-router-dom';
-import { Context } from '../App';
+import { TodoContext, FilterContext } from '../App';
 
 const SearchContainer = styled.div`
 position: absolute;
@@ -75,38 +75,54 @@ const FilterContainer = styled.div`
 const theme = {
     // fg: "palevioletred",
     // bg: "#4fc08d",
-    bg : '#EA4C12'
+    bg: '#EA4C12'
 }
 const Dashboard = () => {
 
-    const { todos } = useContext(Context);
+    const { dispatch, todos } = useContext(TodoContext);
+    const { changeFilter, filter } = useContext(FilterContext);
+
+    console.log(filter);
     const [showForm, setshowForm] = useState(false);
 
-    return (
-        <>
-            <Link to='/create'>
-                <AddCircleButton color='primary' onClick={() => { setshowForm(!showForm) }}>
-                    <AddCircleIcon style={{ fontSize: '3rem' }} />
-                </AddCircleButton>
-            </Link>
-            <SearchContainer>
-                <Input width='70%' placeholder='Search for a task' />
-                <Select width='30%'>
-                    <option value='' disabled selected >Sort By</option>
-                    <option value='Date'>Date</option>
-                    <option value='Deadline'>Deadline</option>
-                </Select>
-            </SearchContainer>
-            <FilterContainer>
-                <Button theme={theme}>All</Button>
-                <Button theme={theme}>Active</Button>
-                <Button theme={theme}>Done</Button>
-            </FilterContainer>
-            <div className='tasks'>
-                {todos.map((todo, index) => <Task key={index} index={index} todo={todo} />)}
-            </div>
-        </>
-    )
-}
+    // let [todosState, setTodosState] = useState(todos);
+    const visibleTodos = (list, filter) => {
+        switch (filter) {
+            case "ALL":
+                return list;
+            case "COMPLETED":
+                return list.filter(todo => todo.completed);
+            case "ACTIVE":
+                return list.filter(todo => !todo.completed);
+            default:
+                return list;
+        }
+    }
+        return (
+            <>
+                <Link to='/create'>
+                    <AddCircleButton color='primary' onClick={() => { setshowForm(!showForm) }}>
+                        <AddCircleIcon style={{ fontSize: '3rem' }} />
+                    </AddCircleButton>
+                </Link>
+                <SearchContainer>
+                    <Input width='70%' placeholder='Search for a task' />
+                    <Select width='30%'>
+                        <option value='' disabled selected >Sort By</option>
+                        <option value='Date'>Date</option>
+                        <option value='Deadline'>Deadline</option>
+                    </Select>
+                </SearchContainer>
+                <FilterContainer>
+                    <Button theme={theme} onClick={() => changeFilter({ type: "SET_VISIBILITY_FILTER", payload: "ALL", })}>All</Button>
+                    <Button theme={theme} onClick={() =>changeFilter({ type: "SET_VISIBILITY_FILTER", payload: "ACTIVE", })}>Active</Button>
+                    <Button theme={theme} onClick={() =>changeFilter({ type: "SET_VISIBILITY_FILTER", payload: "COMPLETED", })}>Done</Button>
+                </FilterContainer>
+                <div className='tasks'>
+                    {visibleTodos(todos, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)}
+                </div>
+            </>
+        )
+    }
 
-export default Dashboard;
+    export default Dashboard;

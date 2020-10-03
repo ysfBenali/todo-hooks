@@ -9,7 +9,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Badge from '../custom-components/Badge';
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { Context } from '../App';
+import { TodoContext } from '../App';
 
 const SingleTask = styled.div`
     position: relative; 
@@ -91,7 +91,7 @@ const End = styled.div`
 `
 
 export const Task = ({ index, todo }) => {
-    const { dispatch } = useContext(Context);
+    const { dispatch } = useContext(TodoContext);
 
     return (
         <SingleTask>

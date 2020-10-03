@@ -5,64 +5,32 @@ import { StylesProvider } from '@material-ui/styles';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import AddTodo from './components/AddTodo';
-import Home from './components/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './styles.css';
 import EditTodo from './components/EditTodo';
+import useStore from './store/useStore';
+import './styles.css';
 
-const ADD_TODO = 'ADD_TODO';
-const DELETE_TODO = 'DELETE_TODO';
-const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED';
-const EDIT_TODO = 'EDIT_TODO';
-
-
-function appReducer(state, action) {
-
-  const { type, payload } = action;
-
-  switch (type) {
-    case ADD_TODO:
-      console.log(payload);
-      return [...state, payload];
-    case DELETE_TODO:
-      return state.filter(todo => todo.id !== payload);
-    case TOGGLE_COMPLETED:
-      return state.map(todo => {
-        if (todo.id === payload) {
-          return {
-            ...todo,
-            completed: !todo.completed
-          };
-        }
-        return todo;
-      });
-    case EDIT_TODO:
-      const updateTodo = payload;
-      const updateTodos = state.map(todo => {
-        if (todo.id === updateTodo.id) {
-          return updateTodo;
-        }
-        return todo;
-      })
-      return  updateTodos;
-    default:
-      return [...state];
-  }
-}
+// const ADD_TODO = 'ADD_TODO';
+// const DELETE_TODO = 'DELETE_TODO';
+// const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED';
+// const EDIT_TODO = 'EDIT_TODO';
+// const DONE_TODOS = 'DONE_TODOS';
 
 // context
-export const Context = React.createContext();
+export const TodoContext = React.createContext();
+export const FilterContext = React.createContext();
 
 function App() {
 
-  const [showForm, setshowForm] = useState(false);
-  const { todos, addTodo, deleteTodo } = useTodo([]);
+  // const [showForm, setshowForm] = useState(false);
 
   //global state improuvement 
-  const [state, dispatch] = useReducer(appReducer, []);
-  // const { todos, addTodo, deleteTodo } = useTodo([]);
+  // const [todos, dispatch] = useTodoList();
+  const [{ todos, filter }, { changeTodos, changeFilter }] = useStore();
+
   return (
-    <Context.Provider value={{ dispatch: dispatch, todos: state }}>
+    <TodoContext.Provider value={{ dispatch: changeTodos, todos: todos }}>
+      <FilterContext.Provider value={{ changeFilter: changeFilter, filter: filter}}>
       <StylesProvider injectFirst >
         <div className="App">
           <Router>
@@ -80,7 +48,8 @@ function App() {
           </Router>
         </div>
       </StylesProvider>
-    </Context.Provider>
+      </FilterContext.Provider>
+    </TodoContext.Provider>
   );
 }
 
