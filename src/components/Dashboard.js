@@ -75,12 +75,15 @@ const FilterContainer = styled.div`
 const theme = {
     // fg: "palevioletred",
     // bg: "#4fc08d",
-    bg : '#EA4C12'
+    bg: '#EA4C12'
 }
 const Dashboard = () => {
 
-    const { todos } = useContext(Context);
+    let { dispatch, todos } = useContext(Context);
     const [showForm, setshowForm] = useState(false);
+
+    let [todosState, setTodosState] = useState(todos)
+
 
     return (
         <>
@@ -98,12 +101,12 @@ const Dashboard = () => {
                 </Select>
             </SearchContainer>
             <FilterContainer>
-                <Button theme={theme}>All</Button>
-                <Button theme={theme}>Active</Button>
-                <Button theme={theme}>Done</Button>
+                <Button theme={theme} onClick={() => setTodosState(todos)}>All</Button>
+                <Button theme={theme} onClick={() => setTodosState(todos.filter(todo => !todo.completed))}>Active</Button>
+                <Button theme={theme} onClick={() => setTodosState(todos.filter(todo => todo.completed))}>Done</Button>
             </FilterContainer>
             <div className='tasks'>
-                {todos.map((todo, index) => <Task key={index} index={index} todo={todo} />)}
+                {todosState.map((todo, index) => <Task key={index} index={index} todo={todo} />)}
             </div>
         </>
     )
