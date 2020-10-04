@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react'
+import React, {useReducer} from 'react';
 
 const reducer = (state, action) => {
 
@@ -6,7 +6,6 @@ const reducer = (state, action) => {
 
     switch (type) {
         case 'ADD_TODO':
-            console.log(payload);
             return [...state, payload];
         case 'DELETE_TODO':
             return state.filter(todo => todo.id !== payload);
@@ -29,17 +28,17 @@ const reducer = (state, action) => {
                 return todo;
             });
             return updateTodos;
-        case 'DONE_TODOS':
-            let done_todos = state.filter(todo => todo.completed);
-            return [...state, done_todos];
+        // case 'DONE_TODOS':
+        //     let done_todos = state.filter(todo => todo.completed);
+        //     return [...state, done_todos];
         default:
             return [...state];
     }
 
 }
 const useTodoList = () => {
-    const [todos, dispatch] = useReducer(reducer, []);
-    return [todos , dispatch];
+    const [todos, changeTodos] = useReducer(reducer, []);
+    return [todos , changeTodos];
 }
 
 export default useTodoList;

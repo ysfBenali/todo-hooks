@@ -1,13 +1,21 @@
+import React, {useReducer} from 'react'
 
+const reducer = (state, action) => {
 
-const reducer = ( state, action) => {
-    let {type, filter} = action;
+    const { type, payload } = action;
+    console.log(payload);
+
     switch (type) {
-        case '':
-            
-            break;
-    
+        case 'SET_VISIBILITY_FILTER':
+            return action.payload;
         default:
-            break;
+            return state;
     }
-};
+
+}
+const useVisibilityFilter = () => {
+    const [filter, changeFilter] = useReducer(reducer,'ALL');
+    return [filter, changeFilter];
+}
+
+export default useVisibilityFilter;

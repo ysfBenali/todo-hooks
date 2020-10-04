@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
 import { useUID } from 'react-uid';
-import { Context } from '../App';
+import { TodoContext } from '../App';
 
 
 
@@ -75,9 +75,9 @@ const theme = {
 
 
 const AddTodo = () => {
-    const { dispatch } = useContext(Context);
+    const { dispatch } = useContext(TodoContext);
     const uid = useUID();
-    const [values, handleChange] = useForm({ id: uid, task: '', type: 'code', completed: false });
+    const [values, handleChange] = useForm({ id: uid, task: '', type: 'code',  completed : false });
     const [date, setStartDate] = useState(new Date());
     let history = useHistory();
 

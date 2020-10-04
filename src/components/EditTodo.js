@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
 import { useParams } from 'react-router-dom';
-import { Context } from '../App';
+import { TodoContext } from '../App';
 
 
 const Wrapper = styled.div`
@@ -95,7 +95,7 @@ const EditTodo = () => {
     const [selectedTodo, setSelectedTodo] = useState({ task: '', type: 'Code', completed: false, date: new Date() });
     // const [selectedTodo, handleChange] = useForm({ task: '', type: 'Code',completed: false, date: new Date() });
     // const [date, setStartDate] = useState(new Date());
-    const { dispatch, todos } = useContext(Context);
+    const { dispatch, todos } = useContext(TodoContext);
     const { id } = useParams();
     let history = useHistory();
 
