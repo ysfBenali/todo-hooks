@@ -47,7 +47,6 @@ export const Task = ({ index, todo }) => {
                     </div>
                 </Link>
             </End>
-
             {/* <div className="title"></div>
 
            <div className="type"></div> */}
