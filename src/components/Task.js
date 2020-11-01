@@ -11,84 +11,6 @@ import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { TodoContext } from '../App';
 
-const SingleTask = styled.div`
-    position: relative; 
-    display: flex;
-    
-    flex-direction: row;
-    overflow: hidden;
-    flex-flow: row ;
-    align-items: space-around;
-    
-    margin:10px auto;
-     /* top: 70%;   */
-     /* left: 50%;  */
-     /* transform: translate(-50%, -50%);  */
-    
-    height: 10rem;
-    width: 60%;
-
-    
-    box-sizing: content-box;
-    border-radius:6px;
-    -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-    
-    @media (max-width: 1200px) {
-        width: 60%;
-
-     }
-
-     @media (max-width: 680px) {
-        width: 85%;
-        height: 9rem;
-
-     }
-     
-     &:hover {
-        transform: scale(1.1);
-    }
-`
-const Start = styled.div`
-    display: flex;
-    flex: 1;
-     /* background-color: red; */
-    align-items: center;
-    justify-content: center;
-`
-
-
-const Middle = styled.div`
-    display : flex;
-    flex: 5;
-    flex-direction: column;
-    justify-content: center;
-
-    align-items: flex-start;
-     /* background-color: green; */
-    /* margin-bottom: 1rem; */
-
-    word-break:break-all;
-`
-const Top = styled.span`
-    display: flex;
-    flex:1;
-     /* background-color: blue; */
-    align-items: center;
-`
-const Bottom = styled.span`
-    display: flex;
-    flex:1;
-     /* background-color: gray; */
-    align-items: center;
- /* margin-bottom: 1em; */
- `
-
-const End = styled.div`
-    background-color: pink;
-    flex-direction: column;
-`
 
 export const Task = ({ index, todo }) => {
     const { dispatch } = useContext(TodoContext);
@@ -133,4 +55,76 @@ export const Task = ({ index, todo }) => {
         </SingleTask>
     )
 }
+
+const SingleTask = styled.div`
+    position: relative; 
+    display: flex;
+    
+    flex-direction: row;
+    overflow: hidden;
+    flex-flow: row ;
+    align-items: space-around;
+    
+    margin:10px auto;
+    
+    height: 11rem;
+    width: 70%;
+
+    box-sizing: content-box;
+    border-radius:6px;
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    transition: transform 450ms;
+
+    @media (max-width: 1200px) {
+        width: 80%;
+     }
+
+     @media (max-width: 680px) {
+        width: 100%;
+        height: 9rem;
+     }
+     
+     &:hover {
+        transform: scale(1.08);
+    }
+`
+const Start = styled.div`
+    display: flex;
+    flex: 1;
+     /* background-color: red; */
+    align-items: center;
+    justify-content: center;
+`
+const Middle = styled.div`
+    display : flex;
+    flex: 5;
+    flex-direction: column;
+    justify-content: center;
+
+    align-items: flex-start;
+     /* background-color: green; */
+    /* margin-bottom: 1rem; */
+
+    word-break:break-all;
+`
+const Top = styled.span`
+    display: flex;
+    flex:1;
+     /* background-color: blue; */
+    align-items: center;
+`
+const Bottom = styled.span`
+    display: flex;
+    flex:1;
+     /* background-color: gray; */
+    align-items: center;
+ /* margin-bottom: 1em; */
+ `
+const End = styled.div`
+    background-color: pink;
+    flex-direction: column;
+`
+
 

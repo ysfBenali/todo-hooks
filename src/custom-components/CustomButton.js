@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled,{css} from 'styled-components';
 
-const Button = styled.button`
+const CustomButton = styled.button`
     font-size: 14px;
     margin: .5em auto;
     margin-bottom : 1.5rem;
@@ -16,9 +16,10 @@ const Button = styled.button`
     border: ${props => props.theme.bg} 2.9px solid;
     transition: 250ms ease-out;
     &:hover, &:focus {
-    color: #fff;
-    background: ${props => props.theme.bg};
-    outline: none;
+        color: #fff;
+        background: ${props => props.theme.bg};
+        outline: none;
     }
+    ${parent => parent.checked && css`color: #fff; outline: none;background: #EA4C12`}
 `
-export default Button;
+export default CustomButton;

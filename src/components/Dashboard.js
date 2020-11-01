@@ -1,11 +1,120 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import AddCircleButton from '../custom-components/AddCircleButton';
 import styled, { css } from 'styled-components';
 import { Task } from './Task';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import Button from '../custom-components/Button';
+import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
+import { useForm } from '../custom-hooks/useForm';
 import { TodoContext, FilterContext } from '../App';
+import firebase from 'firebase';
+import db from '../firebase/firebase';
+
+const theme = {
+    // fg: "palevioletred",
+    // bg: "#4fc08d",
+    bg: '#EA4C12'
+}
+const Dashboard = () => {
+
+    const { dispatch, todos } = useContext(TodoContext);
+    const { changeFilter, filter } = useContext(FilterContext);
+
+    const [showForm, setShowForm] = useState(false);
+
+    const [searchTerm, setSearchTerm] = useState(filter.text);
+    const [orderBy, setOrderBy] = useState(filter.orderBy);
+    const [filterDisplay, setfilterDisplay] = useState([]);
+
+    const searchInput = useRef(null);
+    const { text, show } = filter;
+
+    useEffect(() => {
+        return () => {
+            //changeFilter({ type: "SEARCH", payload: { text : searchTerm} })
+            console.log("unload", searchTerm)
+        };
+    }, []);
+
+
+    useEffect(() => {
+        if (searchTerm !== "") {
+            let newList = [];
+            newList = todos.filter(
+                todo => todo.task.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            // changeFilter({ type: "SEARCH", payload: {text: searchTerm } })
+            setfilterDisplay(newList);
+        } else {
+            setfilterDisplay(todos);
+        }
+
+    }, [searchTerm]);
+
+
+    useEffect(() => {
+        console.log(filter);
+    }, [orderBy]);
+
+    const visibleTodos = (list, { orderBy, show }) => {
+        list.sort((a, b) => {
+            switch (orderBy) {
+                case 'date':
+                    return a.date > b.date ? 1 : -1;
+                case 'deadline':
+                    return a.createdAt > b.createdAt ? 1 : -1;
+                default:
+                    return a.date > b.date ? 1 : -1;
+            }
+        });
+
+        switch (show) {
+            case 'All':
+                return list;
+            case 'Done':
+                return list.filter(todo => todo.completed);
+            case 'Active':
+                return list.filter(todo => !todo.completed);
+            default:
+                return list;
+        };
+    }
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    }
+    const handleOrderByChange = (e) => {
+        setOrderBy(e.target.value);
+        changeFilter({ type: "ORDER_BY", payload: { orderBy: e.target.value, text: searchTerm } })
+
+    }
+    return (
+        <>
+            <Link to='/create'>
+                <AddCircleButton color='primary' onClick={() => { setShowForm(!showForm) }}>
+                    <AddCircleIcon style={{ fontSize: '3rem' }} />
+                </AddCircleButton>
+            </Link>
+            <SearchContainer>
+                <Input type='text' id='text' width='70%' name='searchTerm' placeholder='Search for a task' value={searchTerm} onChange={handleSearchChange} />
+                <Select width='30%' value={orderBy} onChange={handleOrderByChange}>
+                    <option value='' disabled selected >Sort By</option>
+                    <option value='date'>Date</option>
+                    <option value='deadline'>Deadline</option>
+                </Select>
+            </SearchContainer>
+            <FilterContainer>
+                {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index}  theme={theme} checked={filter.show === item} onClick={() => {  console.log("llll",filter); changeFilter({ type: "SET_VISIBILITY_FILTER", payload: { show: item, text: searchTerm } }); }}>{item}</CustomButton>)}
+            </FilterContainer>
+
+            <div className='tasks'>
+                {searchTerm.length < 1 ?
+                    visibleTodos(todos, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
+                    : visibleTodos(filterDisplay, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
+                }
+            </div>
+        </>
+    )
+}
 
 const SearchContainer = styled.div`
 position: absolute;
@@ -72,57 +181,4 @@ const FilterContainer = styled.div`
     }
 `
 
-const theme = {
-    // fg: "palevioletred",
-    // bg: "#4fc08d",
-    bg: '#EA4C12'
-}
-const Dashboard = () => {
-
-    const { dispatch, todos } = useContext(TodoContext);
-    const { changeFilter, filter } = useContext(FilterContext);
-
-    console.log(filter);
-    const [showForm, setshowForm] = useState(false);
-
-    // let [todosState, setTodosState] = useState(todos);
-    const visibleTodos = (list, filter) => {
-        switch (filter) {
-            case "ALL":
-                return list;
-            case "COMPLETED":
-                return list.filter(todo => todo.completed);
-            case "ACTIVE":
-                return list.filter(todo => !todo.completed);
-            default:
-                return list;
-        }
-    }
-        return (
-            <>
-                <Link to='/create'>
-                    <AddCircleButton color='primary' onClick={() => { setshowForm(!showForm) }}>
-                        <AddCircleIcon style={{ fontSize: '3rem' }} />
-                    </AddCircleButton>
-                </Link>
-                <SearchContainer>
-                    <Input width='70%' placeholder='Search for a task' />
-                    <Select width='30%'>
-                        <option value='' disabled selected >Sort By</option>
-                        <option value='Date'>Date</option>
-                        <option value='Deadline'>Deadline</option>
-                    </Select>
-                </SearchContainer>
-                <FilterContainer>
-                    <Button theme={theme} onClick={() => changeFilter({ type: "SET_VISIBILITY_FILTER", payload: "ALL", })}>All</Button>
-                    <Button theme={theme} onClick={() =>changeFilter({ type: "SET_VISIBILITY_FILTER", payload: "ACTIVE", })}>Active</Button>
-                    <Button theme={theme} onClick={() =>changeFilter({ type: "SET_VISIBILITY_FILTER", payload: "COMPLETED", })}>Done</Button>
-                </FilterContainer>
-                <div className='tasks'>
-                    {visibleTodos(todos, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)}
-                </div>
-            </>
-        )
-    }
-
-    export default Dashboard;
+export default Dashboard;
