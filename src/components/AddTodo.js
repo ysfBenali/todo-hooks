@@ -1,15 +1,62 @@
 import React, { useState, useContext } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import styled, { css } from 'styled-components';
+import convertToTimestamp from '../firebase/convertToTimestamp';
 import DatePicker from 'react-datepicker';
-import Button from '../custom-components/Button';
-import { Redirect } from 'react-router-dom';
+import CustomButton from '../custom-components/CustomButton';
+// import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
-import { useUID } from 'react-uid';
+// import { useUID } from 'react-uid';
 import { TodoContext } from '../App';
 
 
+const theme = {
+     bg: "#4fc08d"
+}
+
+const AddTodo = () => {
+    const { dispatch } = useContext(TodoContext);
+    // const uid = useUID();
+    const [values, handleChange] = useForm({ task: '', type: 'code',  completed : false });
+    const [date, setStartDate] = useState(new Date());
+    let history = useHistory();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setStartDate(convertToTimestamp(date));
+        let createdAt = convertToTimestamp(new Date());
+        dispatch({ payload: { ...values, date, createdAt }, type: 'ADD_TODO' });
+        history.push('/dashboard');
+
+        // reset();
+    }
+    const handleDateChange = (date) =>{
+        setStartDate(date);
+    }
+    return (
+        <form onSubmit={handleSubmit}>
+            <Wrapper>
+                <Input name='task'
+                    placeholder='Task'
+                    value={values.task}
+                    onChange={handleChange} />
+                <Select name='type' value={values.type} onChange={handleChange} >
+                    <option value='code'>Code</option>
+                    <option value='design'>Design</option>
+                    <option value='gym'>Gym</option>
+                    <option value='other'>Other</option>
+                </Select>
+                <DatePicker customInput={<Input />}
+                    name='date'
+                    selected={date}
+                    onChange={handleDateChange}
+                />
+                <CustomButton theme={theme}> Add Task </CustomButton>
+            </Wrapper>
+        </form>
+    )
+}
 
 export const Wrapper = styled.div`
     position: absolute;
@@ -68,52 +115,5 @@ const Input = styled.input`
 const Select = styled.select`
     ${baseInputStyles}
 `
-
-const theme = {
-     bg: "#4fc08d"
-}
-
-
-const AddTodo = () => {
-    const { dispatch } = useContext(TodoContext);
-    const uid = useUID();
-    const [values, handleChange] = useForm({ id: uid, task: '', type: 'code',  completed : false });
-    const [date, setStartDate] = useState(new Date());
-    let history = useHistory();
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        dispatch({ payload: { ...values, date }, type: 'ADD_TODO' });
-        history.push('/dashboard');
-
-        // reset();
-    }
-    const handleDateChange = (date) =>{
-        setStartDate(date);
-    }
-    return (
-        <form onSubmit={handleSubmit}>
-            <Wrapper>
-                <Input name='task'
-                    placeholder='Task'
-                    value={values.task}
-                    onChange={handleChange} />
-                <Select name='type' value={values.type} onChange={handleChange} >
-                    <option value='code'>Code</option>
-                    <option value='design'>Design</option>
-                    <option value='gym'>Gym</option>
-                    <option value='other'>Other</option>
-                </Select>
-                <DatePicker customInput={<Input />}
-                    name='date'
-                    selected={date}
-                    onChange={handleDateChange}
-                />
-                <Button theme={theme}> Add Task </Button>
-            </Wrapper>
-        </form>
-    )
-}
-
 
 export default AddTodo;
