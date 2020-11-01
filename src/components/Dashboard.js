@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import AddCircleButton from '../custom-components/AddCircleButton';
 import styled, { css } from 'styled-components';
-import { Task } from './Task';
+import Tasks from './Tasks';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
@@ -103,15 +103,10 @@ const Dashboard = () => {
                 </Select>
             </SearchContainer>
             <FilterContainer>
-                {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index}  theme={theme} checked={filter.show === item} onClick={() => {  console.log("llll",filter); changeFilter({ type: "SET_VISIBILITY_FILTER", payload: { show: item, text: searchTerm } }); }}>{item}</CustomButton>)}
+                {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index} theme={theme} checked={filter.show === item} onClick={() => { console.log("llll", filter); changeFilter({ type: "SET_VISIBILITY_FILTER", payload: { show: item, text: searchTerm } }); }}>{item}</CustomButton>)}
             </FilterContainer>
 
-            <div className='tasks'>
-                {searchTerm.length < 1 ?
-                    visibleTodos(todos, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
-                    : visibleTodos(filterDisplay, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
-                }
-            </div>
+            <Tasks {...{ todos, filterDisplay, searchTerm, filter, visibleTodos }} />
         </>
     )
 }
