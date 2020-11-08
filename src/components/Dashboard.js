@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
 import AddCircleButton from '../custom-components/AddCircleButton';
 import styled, { css } from 'styled-components';
 import Tasks from './Tasks';
+import { Task } from './Task';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
@@ -24,15 +25,19 @@ const Dashboard = () => {
 
     const [searchTerm, setSearchTerm] = useState(filter.text);
     const [orderBy, setOrderBy] = useState(filter.orderBy);
+    const [show, setShow] = useState(filter.orderBy);
+
     const [filterDisplay, setfilterDisplay] = useState([]);
 
     const searchInput = useRef(null);
-    const { text, show } = filter;
+    const { text } = filter;
 
     useEffect(() => {
+        //new
+        // setfilterDisplay(todos);
+        // console.log("filterDisplay", filterDisplay);
         return () => {
             //changeFilter({ type: "SEARCH", payload: { text : searchTerm} })
-            console.log("unload", searchTerm)
         };
     }, []);
 
@@ -50,11 +55,6 @@ const Dashboard = () => {
         }
 
     }, [searchTerm]);
-
-
-    useEffect(() => {
-        console.log(filter);
-    }, [orderBy]);
 
     const visibleTodos = (list, { orderBy, show }) => {
         list.sort((a, b) => {
@@ -85,8 +85,15 @@ const Dashboard = () => {
     const handleOrderByChange = (e) => {
         setOrderBy(e.target.value);
         changeFilter({ type: "ORDER_BY", payload: { orderBy: e.target.value, text: searchTerm } })
-
     }
+
+    // const handleShow = (e) => {
+    //     setShow(e.target.value);
+    //     changeFilter({
+    //         type: "SET_VISIBILITY_FILTER",
+    //         payload: { show: item, text: searchTerm }
+    //     })
+    // }
     return (
         <>
             <Link to='/create'>
@@ -103,10 +110,18 @@ const Dashboard = () => {
                 </Select>
             </SearchContainer>
             <FilterContainer>
-                {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index} theme={theme} checked={filter.show === item} onClick={() => { console.log("llll", filter); changeFilter({ type: "SET_VISIBILITY_FILTER", payload: { show: item, text: searchTerm } }); }}>{item}</CustomButton>)}
+                {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index} theme={theme}
+                    checked={show === item} onClick={() => {
+                        setShow(item);
+                        // changeFilter({
+                        //     type: "SET_VISIBILITY_FILTER",
+                        //     payload: { show: item, text: searchTerm }
+                        // });
+                    }}>{item}</CustomButton>)}
             </FilterContainer>
 
-            <Tasks {...{ todos, filterDisplay, searchTerm, filter, visibleTodos }} />
+            <Tasks {...{ filterDisplay,todos, searchTerm, filter, visibleTodos }} />
+
         </>
     )
 }

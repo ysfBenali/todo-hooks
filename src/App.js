@@ -34,6 +34,7 @@ function App() {
   const [initialTodos, setInitialTodos] = useState([]);
 
   useEffect(() => {
+    console.log("kkkkkk");
     db.collection('todos').onSnapshot(snapshot => {
       changeTodos({type: 'INIT_TODO', payload : snapshot.docs.map(doc => ({id: doc.id,...doc.data()}) )});
     })
