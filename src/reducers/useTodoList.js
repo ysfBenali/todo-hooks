@@ -10,9 +10,11 @@ const reducer = (state, action) => {
         case 'ADD_TODO':
             todosRef.add(payload);
             return [...state, payload];
+
         case 'DELETE_TODO':
             todosRef.doc(payload).delete();
             return state.filter(todo => todo.id !== payload);
+
         case 'TOGGLE_COMPLETED':
             const todoRef = todosRef.doc(payload);
             return state.map(todo => {
@@ -25,6 +27,13 @@ const reducer = (state, action) => {
                 }
                 return todo;
             });
+
+        case 'DELETE_ALL_TODOS':
+            state.map(todo =>
+                todosRef.doc(todo.id).delete()
+            )
+            return [...state];
+
         case 'EDIT_TODO':
             const updateTodo = payload;
             const updateTodos = state.map(todo => {
@@ -35,6 +44,7 @@ const reducer = (state, action) => {
                 return todo;
             });
             return [...updateTodos];
+            
         case 'INIT_TODO':
             return [...payload];
         default:
@@ -50,7 +60,7 @@ const useTodoList = () => {
     useEffect(() => {
         db.collection('todos').onSnapshot(snapshot => {
             changeTodos({
-                type: 'INIT_TODO', 
+                type: 'INIT_TODO',
                 payload: snapshot.docs.map(doc => (
                     {
                         id: doc.id,

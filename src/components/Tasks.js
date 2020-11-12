@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Task } from './Task';
+import { Link } from 'react-router-dom';
 import CustomButton from '../custom-components/CustomButton';
+import { TodoContext } from '../App';
 
 const theme = {
     bg_add: "#4fc08d",
@@ -8,6 +10,7 @@ const theme = {
 }
 
 const Tasks = ({ filterDisplay, filter, visibleTodos }) => {
+    const { dispatch } = useContext(TodoContext);
 
     return (
         <>
@@ -24,10 +27,12 @@ const Tasks = ({ filterDisplay, filter, visibleTodos }) => {
             </div>
             {(filterDisplay.length > 0) ?
                 <div className='delete-state'>
-                    <CustomButton theme={{ bg: '#f03f3f' }}> Delete All </CustomButton>
+                    <CustomButton theme={{ bg: '#f03f3f' }} onClick={() =>dispatch({ type: 'DELETE_ALL_TODOS'})} > Delete All </CustomButton>
                 </div> : <div className='empty-state'>
                     <h2>Start your day by adding some tasks !</h2>
-                    <CustomButton theme={{ bg: '#4fc08d' }}> Add new Task </CustomButton>
+                    <Link to='/create'>
+                        <CustomButton theme={{ bg: '#4fc08d' }}> Add new Task </CustomButton>
+                    </Link>
                 </div>
             }
 
