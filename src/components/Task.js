@@ -18,7 +18,6 @@ export const Task = ({ index, todo }) => {
     return (
         <SingleTask>
             <Start>
-                {/* <input type="radio"></input> */}
                 <Checkbox
                     icon={<CircleUnchecked style={{ fontSize: 35, color: 'green' }} />}
                     checked={todo.completed}
@@ -47,10 +46,6 @@ export const Task = ({ index, todo }) => {
                     </div>
                 </Link>
             </End>
-            {/* <div className="title"></div>
-
-           <div className="type"></div> */}
-
         </SingleTask>
     )
 }

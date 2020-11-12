@@ -1,4 +1,4 @@
-import React ,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Task } from './Task';
 import CustomButton from '../custom-components/CustomButton';
 
@@ -7,25 +7,21 @@ const theme = {
     bg_del: "#f03f3f"
 }
 
-const Tasks = ({ filterDisplay,todos, searchTerm, filter, visibleTodos }) => {
-    
-    useEffect(() => {
-        console.log("changes");
-    },[]);
+const Tasks = ({ filterDisplay, filter, visibleTodos }) => {
 
     return (
         <>
-            <div className='tasks'>
+            {/* <div className='tasks'>
                 {searchTerm.length < 1 ?
                     visibleTodos(todos, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
                     : visibleTodos(filterDisplay, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
                 }
-            </div>
-            {/* <div className='tasks'>
+            </div> */}
+            <div className='tasks'>
                 {
                     visibleTodos(filterDisplay, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
                 }
-            </div> */}
+            </div>
             {(filterDisplay.length > 0) ?
                 <div className='delete-state'>
                     <CustomButton theme={{ bg: '#f03f3f' }}> Delete All </CustomButton>
@@ -34,13 +30,6 @@ const Tasks = ({ filterDisplay,todos, searchTerm, filter, visibleTodos }) => {
                     <CustomButton theme={{ bg: '#4fc08d' }}> Add new Task </CustomButton>
                 </div>
             }
-            {/* {(todos.length === 0 || filterDisplay.lenght === 0) ?
-                <div className='empty-state'>
-                    <h2>Start your day by adding some tasks !</h2>
-                    <CustomButton theme={{ bg: '#4fc08d' }}> Add new Task </CustomButton>
-                </div> : null
-            } */}
-
 
         </>
     )
