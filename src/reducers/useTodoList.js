@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import db from '../firebase/firebase';
 
 const reducer = (state, action) => {
@@ -43,10 +43,24 @@ const reducer = (state, action) => {
 
 }
 
-
 const useTodoList = () => {
-    // const [initialState,setInitialState] = useState([])
-    const [todos, changeTodos] = useReducer(reducer, []);
+
+    const [todos, changeTodos] = useReducer(reducer, null);
+
+    useEffect(() => {
+        db.collection('todos').onSnapshot(snapshot => {
+            changeTodos({
+                type: 'INIT_TODO', 
+                payload: snapshot.docs.map(doc => (
+                    {
+                        id: doc.id,
+                        ...doc.data()
+                    }
+                ))
+            });
+        })
+    }, [])
+
     return [todos, changeTodos];
 }
 

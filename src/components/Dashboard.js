@@ -25,22 +25,12 @@ const Dashboard = () => {
 
     const [searchTerm, setSearchTerm] = useState(filter.text);
     const [orderBy, setOrderBy] = useState(filter.orderBy);
-    const [show, setShow] = useState(filter.orderBy);
+    const [show, setShow] = useState(filter.show);
 
-    const [filterDisplay, setfilterDisplay] = useState([]);
+    const [filterDisplay, setfilterDisplay] = useState(null);
 
     const searchInput = useRef(null);
     const { text } = filter;
-
-    useEffect(() => {
-        //new
-        // setfilterDisplay(todos);
-        // console.log("filterDisplay", filterDisplay);
-        return () => {
-            //changeFilter({ type: "SEARCH", payload: { text : searchTerm} })
-        };
-    }, []);
-
 
     useEffect(() => {
         if (searchTerm !== "") {
@@ -48,12 +38,10 @@ const Dashboard = () => {
             newList = todos.filter(
                 todo => todo.task.toLowerCase().includes(searchTerm.toLowerCase())
             );
-            // changeFilter({ type: "SEARCH", payload: {text: searchTerm } })
             setfilterDisplay(newList);
         } else {
             setfilterDisplay(todos);
         }
-
     }, [searchTerm]);
 
     const visibleTodos = (list, { orderBy, show }) => {
@@ -72,12 +60,14 @@ const Dashboard = () => {
             case 'All':
                 return list;
             case 'Done':
+                console.log(list.filter(todo => todo.completed));
                 return list.filter(todo => todo.completed);
             case 'Active':
                 return list.filter(todo => !todo.completed);
             default:
                 return list;
         };
+
     }
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -87,13 +77,15 @@ const Dashboard = () => {
         changeFilter({ type: "ORDER_BY", payload: { orderBy: e.target.value, text: searchTerm } })
     }
 
-    // const handleShow = (e) => {
-    //     setShow(e.target.value);
-    //     changeFilter({
-    //         type: "SET_VISIBILITY_FILTER",
-    //         payload: { show: item, text: searchTerm }
-    //     })
-    // }
+    const handleShow = (e) => {
+        if (e.target.value !== show) {
+            setShow(e.target.value);
+            changeFilter({
+                type: "SET_VISIBILITY_FILTER",
+                payload: { show: e.target.value, text: searchTerm }
+            })
+        }
+    }
     return (
         <>
             <Link to='/create'>
@@ -111,17 +103,14 @@ const Dashboard = () => {
             </SearchContainer>
             <FilterContainer>
                 {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index} theme={theme}
-                    checked={show === item} onClick={() => {
-                        setShow(item);
-                        // changeFilter({
-                        //     type: "SET_VISIBILITY_FILTER",
-                        //     payload: { show: item, text: searchTerm }
-                        // });
-                    }}>{item}</CustomButton>)}
+                    checked={show === item} onClick={handleShow}>{item}</CustomButton>)}
             </FilterContainer>
 
-            <Tasks {...{ filterDisplay,todos, searchTerm, filter, visibleTodos }} />
-
+            {(filterDisplay) ?
+                <Tasks {...{ filterDisplay, todos, searchTerm, filter, visibleTodos }} />
+                :
+                null
+            }
         </>
     )
 }

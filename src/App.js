@@ -25,20 +25,8 @@ export const FilterContext = React.createContext();
 
 function App() {
 
-  // const [showForm, setshowForm] = useState(false);
-
   //global state improuvement 
   const [{  todos, filter }, { changeTodos, changeFilter }] = useStore();
-  // const [{  todos, filter }, { changeTodos, changeFilter }] = useStore();
-
-  const [initialTodos, setInitialTodos] = useState([]);
-
-  useEffect(() => {
-    console.log("kkkkkk");
-    db.collection('todos').onSnapshot(snapshot => {
-      changeTodos({type: 'INIT_TODO', payload : snapshot.docs.map(doc => ({id: doc.id,...doc.data()}) )});
-    })
-  }, [])
   
   return (
     <TodoContext.Provider value={{ dispatch: changeTodos, todos: todos }}>
@@ -55,7 +43,6 @@ function App() {
               </Route>
               {/* <Route path='/dashboard' component={() => <Dashboard todos={todos} deleteTodo={deleteTodo} />} /> */}
               <Route path='/dashboard' component={() => <Dashboard/>} />
-
             </Switch>
           </Router>
         </div>
