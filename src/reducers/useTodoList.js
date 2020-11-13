@@ -5,6 +5,7 @@ const reducer = (state, action) => {
 
     const { type, payload } = action;
     let todosRef = db.collection('todos');
+    let updatedTodos = [];
 
     switch (type) {
         case 'ADD_TODO':
@@ -16,10 +17,10 @@ const reducer = (state, action) => {
             return state.filter(todo => todo.id !== payload);
 
         case 'TOGGLE_COMPLETED':
-            const todoRef = todosRef.doc(payload);
-            return state.map(todo => {
+            let todoRef = todosRef.doc(payload);
+            updatedTodos = state.map(todo => {
                 if (todo.id === payload) {
-                    todoRef.update({ completed: !todo.completed });
+                     todoRef.update({ completed: !todo.completed });
                     return {
                         ...todo,
                         completed: !todo.completed
@@ -27,6 +28,7 @@ const reducer = (state, action) => {
                 }
                 return todo;
             });
+            return [...updatedTodos];
 
         case 'DELETE_ALL_TODOS':
             state.map(todo =>
@@ -35,17 +37,18 @@ const reducer = (state, action) => {
             return [...state];
 
         case 'EDIT_TODO':
-            const updateTodo = payload;
-            const updateTodos = state.map(todo => {
+            let updateTodo = payload;
+            updatedTodos = state.map(todo => {
                 if (todo.id === updateTodo.id) {
                     todosRef.doc(todo.id).update(updateTodo);
                     return updateTodo;
                 }
                 return todo;
             });
-            return [...updateTodos];
-            
+            return [...state];
+
         case 'INIT_TODO':
+            console.log("init !!");
             return [...payload];
         default:
             return [...state];
@@ -58,7 +61,8 @@ const useTodoList = () => {
     const [todos, changeTodos] = useReducer(reducer, null);
 
     useEffect(() => {
-        db.collection('todos').onSnapshot(snapshot => {
+        let unsubscribe = db.collection('todos').onSnapshot(snapshot => {
+            console.log("updated todos !");
             changeTodos({
                 type: 'INIT_TODO',
                 payload: snapshot.docs.map(doc => (
@@ -69,6 +73,9 @@ const useTodoList = () => {
                 ))
             });
         })
+        return () => {
+            unsubscribe();
+        }
     }, [])
 
     return [todos, changeTodos];

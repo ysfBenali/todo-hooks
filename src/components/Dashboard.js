@@ -33,6 +33,10 @@ const Dashboard = () => {
     const { text } = filter;
 
     useEffect(() => {
+        console.log("render Dashbord.js !");
+      }, [])
+
+    useEffect(() => {
         if (searchTerm !== "") {
             let newList = [];
             newList = todos.filter(
