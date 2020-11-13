@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react'
+import React, { Component, useEffect, useContext } from 'react'
 import styled, { css } from 'styled-components';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
@@ -11,12 +11,16 @@ import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { TodoContext } from '../App';
 
-
+// const toggleCompleted = (id) => {
+//     db.collection('todos').
+// }
 export const Task = ({ index, todo }) => {
     const { dispatch } = useContext(TodoContext);
-
+    useEffect(() => {
+        console.log("render Task.js !");
+    }, [])
     return (
-        <SingleTask>
+        <SingleTask completed={todo.completed}>
             <Start>
                 <Checkbox
                     icon={<CircleUnchecked style={{ fontSize: 35, color: 'green' }} />}
@@ -26,7 +30,7 @@ export const Task = ({ index, todo }) => {
                 />
             </Start>
             <Middle>
-                <Top>
+                <Top completed={todo.completed}>
                     <h5>{todo.task}</h5>
                 </Top>
                 <Bottom>
@@ -37,11 +41,11 @@ export const Task = ({ index, todo }) => {
             </Middle>
             <End>
                 <IconButton >
-                    <ClearIcon style={{ fontSize: 35, color: 'red' }} onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })} />
+                    <ClearIcon style={{ alignSelf: 'flex-start',fontSize: 35, color: 'red' }} onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })} />
                 </IconButton>
                 {/* edit div */}
                 <Link to={`/edit/${todo.id}`}>
-                    <div style={{ marginTop: '3rem', color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: 'EDIT_TODO', payload: todo })}>
+                    <div style={{ alignSelf: 'flex-end' ,color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: 'EDIT_TODO', payload: todo })}>
                         <FaRegEdit />
                     </div>
                 </Link>
@@ -70,6 +74,7 @@ const SingleTask = styled.div`
     -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     transition: transform 450ms;
+    background-color: ${props => props.completed && '#e0dede' };
 
     @media (max-width: 1200px) {
         width: 80%;
@@ -106,18 +111,24 @@ const Middle = styled.div`
 const Top = styled.span`
     display: flex;
     flex:1;
-     /* background-color: blue; */
+    font-size: 1.2em;
     align-items: center;
+    &> h5 {
+        text-decoration: ${props => props.completed && 'line-through black' };
+    }
 `
 const Bottom = styled.span`
     display: flex;
     flex:1;
      /* background-color: gray; */
     align-items: center;
- /* margin-bottom: 1em; */
+    /* margin-bottom: 1em; */
  `
 const End = styled.div`
-    background-color: pink;
+    display: inline-flex;
+    justify-content: space-between;
+    padding-bottom: .4em;
+    background-color: #ffb300;
     flex-direction: column;
 `
 

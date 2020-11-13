@@ -24,7 +24,10 @@ export const FilterContext = React.createContext();
 
 
 function App() {
-
+  useEffect(() => {
+    console.log("render App.js !");
+  }, [])
+  
   //global state improuvement 
   const [{  todos, filter }, { changeTodos, changeFilter }] = useStore();
   

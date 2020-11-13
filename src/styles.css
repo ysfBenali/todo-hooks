@@ -102,3 +102,7 @@ h6 {
 .react-datepicker {
   margin: 0em auto;
 }
+
+.delete-state{
+  margin: 2em auto;
+}

@@ -22,12 +22,14 @@ const Tasks = ({ filterDisplay, filter, visibleTodos }) => {
             </div> */}
             <div className='tasks'>
                 {
-                    visibleTodos(filterDisplay, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
+                    visibleTodos(filterDisplay, filter).map((todo, index) =>
+                        <Task key={index} index={index} todo={todo} />
+                    )
                 }
             </div>
             {(filterDisplay.length > 0) ?
                 <div className='delete-state'>
-                    <CustomButton theme={{ bg: '#f03f3f' }} onClick={() =>dispatch({ type: 'DELETE_ALL_TODOS'})} > Delete All </CustomButton>
+                    <CustomButton theme={{ bg: '#f03f3f' }} onClick={() => dispatch({ type: 'DELETE_ALL_TODOS' })} > Delete All </CustomButton>
                 </div> : <div className='empty-state'>
                     <h2>Start your day by adding some tasks !</h2>
                     <Link to='/create'>
