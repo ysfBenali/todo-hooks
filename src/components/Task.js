@@ -127,7 +127,7 @@ const Bottom = styled.span`
 const End = styled.div`
     display: inline-flex;
     justify-content: space-between;
-    padding-bottom: .4em;
+    padding-bottom: .5rem;
     background-color: #ffb300;
     flex-direction: column;
 `

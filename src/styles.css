@@ -10,6 +10,8 @@ body {
 }
 
 .top {
+  display: flex;
+
   background-color: #00c3ff;
   color: #ffff;
   text-align: center;
@@ -21,22 +23,29 @@ body {
   display: block;
 }
 
-h1 {
+.top h1 {
   position: relative;
-  margin: 0 auto;
-  /* padding-top: 1rem ; */
-  font-size: 1.5em;
   top: 20%;
-  /* right: 2vw; */
+  margin: 1em auto;
+  font-size: 1.6em;
 }
-h5,
-h6 {
+
+@media screen and (max-width: 680px) {
+  /* .top {
+  height: 1vh;
+  min-height: 8rem;
+  } */
+  .top h1 {
+    margin: 0 auto;
+  }
+}
+
+h5, h6 {
   margin: 0 auto;
 }
 
 .bottom {
   background-color: #ffff;
-  /* padding: 2rem; */
 }
 
 .tasks {

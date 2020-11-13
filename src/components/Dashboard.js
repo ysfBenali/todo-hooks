@@ -94,7 +94,7 @@ const Dashboard = () => {
         <>
             <Link to='/create'>
                 <AddCircleButton color='primary' onClick={() => { setShowForm(!showForm) }}>
-                    <AddCircleIcon style={{ fontSize: '3rem' }} />
+                    <AddCircleIcon style={{ fontSize: '3.5rem' }} />
                 </AddCircleButton>
             </Link>
             <SearchContainer>
@@ -115,6 +115,7 @@ const Dashboard = () => {
                 :
                 null
             }
+            
         </>
     )
 }

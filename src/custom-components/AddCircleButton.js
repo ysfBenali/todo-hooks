@@ -3,7 +3,7 @@ import { StylesProvider } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 
 export default styled(IconButton)
-`
+    `
     color: #EA4C12;
     background-color: #ffff;
     position: absolute;
@@ -11,10 +11,19 @@ export default styled(IconButton)
     left: 80%;
     transform: translateY(-50%) translateX(-50%);
 
-    // bottom: 0;
-    // right: 15vw;
     &:hover {
         background-color: #ffff;
-       // transform: scale(1.1);
     }
+    @media (max-width: 1200px) {
+        z-index: 1;
+        position: fixed;
+        display: block;
+        right: 2rem;
+        left: 95%;
+        bottom : 0%;
+        padding: 1px;
+      }
+      @media (max-width: 680px){
+        left: 85%;
+      }
 `;
