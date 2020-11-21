@@ -9,7 +9,7 @@ const theme = {
     bg_del: "#f03f3f"
 }
 
-const Tasks = ({ filterDisplay, filter, visibleTodos }) => {
+const Tasks = ({ todos, filter, searchTerm, visibleTodos }) => {
     const { dispatch } = useContext(TodoContext);
 
     return (
@@ -22,12 +22,12 @@ const Tasks = ({ filterDisplay, filter, visibleTodos }) => {
             </div> */}
             <div className='tasks'>
                 {
-                    visibleTodos(filterDisplay, filter).map((todo, index) =>
+                    visibleTodos(todos, filter, searchTerm).map((todo, index) =>
                         <Task key={index} index={index} todo={todo} />
                     )
                 }
             </div>
-            {(filterDisplay.length > 0) ?
+            {(todos.length > 0) ?
                 <div className='delete-state'>
                     <CustomButton theme={{ bg: '#f03f3f' }} onClick={() => dispatch({ type: 'DELETE_ALL_TODOS' })} > Delete All </CustomButton>
                 </div> : <div className='empty-state'>

@@ -2,18 +2,12 @@ import React, { useState, useContext, useEffect, useRef, useCallback } from 'rea
 import AddCircleButton from '../custom-components/AddCircleButton';
 import styled, { css } from 'styled-components';
 import Tasks from './Tasks';
-import { Task } from './Task';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
-import { useForm } from '../custom-hooks/useForm';
 import { TodoContext, FilterContext } from '../App';
-import firebase from 'firebase';
-import db from '../firebase/firebase';
 
 const theme = {
-    // fg: "palevioletred",
-    // bg: "#4fc08d",
     bg: '#EA4C12'
 }
 const Dashboard = () => {
@@ -27,29 +21,21 @@ const Dashboard = () => {
     const [orderBy, setOrderBy] = useState(filter.orderBy);
     const [show, setShow] = useState(filter.show);
 
-    const [filterDisplay, setfilterDisplay] = useState(null);
-
-    const searchInput = useRef(null);
     const { text } = filter;
 
-    useEffect(() => {
-        console.log("render Dashbord.js !");
-      }, [])
+    const visibleTodos = (list, { orderBy, show }, searchTerm) => {
 
-    useEffect(() => {
+        let newList = [];
+
         if (searchTerm !== "") {
-            let newList = [];
-            newList = todos.filter(
+            newList = list.filter(
                 todo => todo.task.toLowerCase().includes(searchTerm.toLowerCase())
             );
-            setfilterDisplay(newList);
         } else {
-            setfilterDisplay(todos);
+            newList = list;
         }
-    }, [searchTerm]);
 
-    const visibleTodos = (list, { orderBy, show }) => {
-        list.sort((a, b) => {
+        newList.sort((a, b) => {
             switch (orderBy) {
                 case 'date':
                     return a.date > b.date ? 1 : -1;
@@ -62,14 +48,13 @@ const Dashboard = () => {
 
         switch (show) {
             case 'All':
-                return list;
+                return newList;
             case 'Done':
-                console.log(list.filter(todo => todo.completed));
-                return list.filter(todo => todo.completed);
+                return newList.filter(todo => todo.completed);
             case 'Active':
-                return list.filter(todo => !todo.completed);
+                return newList.filter(todo => !todo.completed);
             default:
-                return list;
+                return newList;
         };
 
     }
@@ -97,6 +82,7 @@ const Dashboard = () => {
                     <AddCircleIcon style={{ fontSize: '3.5rem' }} />
                 </AddCircleButton>
             </Link>
+
             <SearchContainer>
                 <Input type='text' id='text' width='70%' name='searchTerm' placeholder='Search for a task' value={searchTerm} onChange={handleSearchChange} />
                 <Select width='30%' value={orderBy} onChange={handleOrderByChange}>
@@ -105,17 +91,15 @@ const Dashboard = () => {
                     <option value='deadline'>Deadline</option>
                 </Select>
             </SearchContainer>
+
             <FilterContainer>
                 {['All', 'Active', 'Done'].map((item, index) => <CustomButton name={item} value={item} key={index} theme={theme}
                     checked={show === item} onClick={handleShow}>{item}</CustomButton>)}
             </FilterContainer>
 
-            {(filterDisplay) ?
-                <Tasks {...{ filterDisplay, todos, searchTerm, filter, visibleTodos }} />
-                :
-                null
+            {
+                (todos) ? <Tasks {...{ todos, filter, searchTerm, visibleTodos }} /> : null
             }
-            
         </>
     )
 }
