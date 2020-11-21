@@ -1,7 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import { useTodo}  from './custom-hooks/useTodo';
-import useTodoList from './reducers/useTodoList';
-import './App.css';
+import React from 'react';
 import { StylesProvider } from '@material-ui/styles';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
@@ -9,24 +6,13 @@ import AddTodo from './components/AddTodo';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import EditTodo from './components/EditTodo';
 import useStore from './store/useStore';
-import db from './firebase/firebase';
 import './styles.css';
-
-// const ADD_TODO = 'ADD_TODO';
-// const DELETE_TODO = 'DELETE_TODO';
-// const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED';
-// const EDIT_TODO = 'EDIT_TODO';
-// const DONE_TODOS = 'DONE_TODOS';
 
 // context
 export const TodoContext = React.createContext();
 export const FilterContext = React.createContext();
 
-
 function App() {
-  useEffect(() => {
-    console.log("render App.js !");
-  }, [])
   
   //global state improuvement 
   const [{  todos, filter }, { changeTodos, changeFilter }] = useStore();
@@ -44,7 +30,6 @@ function App() {
               <Route path='/edit/:id'>
                 <EditTodo />
               </Route>
-              {/* <Route path='/dashboard' component={() => <Dashboard todos={todos} deleteTodo={deleteTodo} />} /> */}
               <Route path='/dashboard' component={() => <Dashboard/>} />
             </Switch>
           </Router>

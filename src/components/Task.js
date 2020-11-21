@@ -1,8 +1,7 @@
 import React, { Component, useEffect, useContext } from 'react'
-import styled, { css } from 'styled-components';
+import { Actions } from '../reducers/useTodoList';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
-import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -10,15 +9,11 @@ import Badge from '../custom-components/Badge';
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { TodoContext } from '../App';
+import styled, { css } from 'styled-components';
 
-// const toggleCompleted = (id) => {
-//     db.collection('todos').
-// }
 export const Task = ({ index, todo }) => {
     const { dispatch } = useContext(TodoContext);
-    useEffect(() => {
-        console.log("render Task.js !");
-    }, [])
+
     return (
         <SingleTask completed={todo.completed}>
             <Start>
@@ -26,7 +21,7 @@ export const Task = ({ index, todo }) => {
                     icon={<CircleUnchecked style={{ fontSize: 35, color: 'green' }} />}
                     checked={todo.completed}
                     checkedIcon={<CircleChecked style={{ fontSize: 35, color: 'green' }} />}
-                    onClick={() => dispatch({ type: 'TOGGLE_COMPLETED', payload: todo.id })}
+                    onClick={() => dispatch({ type: Actions.TOGGLE_COMPLETED, payload: todo.id })}
                 />
             </Start>
             <Middle>
@@ -41,11 +36,10 @@ export const Task = ({ index, todo }) => {
             </Middle>
             <End>
                 <IconButton >
-                    <ClearIcon style={{ alignSelf: 'flex-start',fontSize: 35, color: 'red' }} onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })} />
+                    <ClearIcon style={{ alignSelf: 'flex-start', fontSize: 35, color: 'red' }} onClick={() => dispatch({ type: Actions.DELETE_TODO, payload: todo.id })} />
                 </IconButton>
-                {/* edit div */}
                 <Link to={`/edit/${todo.id}`}>
-                    <div style={{ alignSelf: 'flex-end' ,color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: 'EDIT_TODO', payload: todo })}>
+                    <div style={{ alignSelf: 'flex-end', color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: Actions.EDIT_TODO, payload: todo })}>
                         <FaRegEdit />
                     </div>
                 </Link>
@@ -74,7 +68,7 @@ const SingleTask = styled.div`
     -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     transition: transform 450ms;
-    background-color: ${props => props.completed && '#e0dede' };
+    background-color: ${props => props.completed && '#e0dede'};
 
     @media (max-width: 1200px) {
         width: 80%;
@@ -114,7 +108,7 @@ const Top = styled.span`
     font-size: 1.2em;
     align-items: center;
     &> h5 {
-        text-decoration: ${props => props.completed && 'line-through black' };
+        text-decoration: ${props => props.completed && 'line-through black'};
     }
 `
 const Bottom = styled.span`
@@ -128,7 +122,7 @@ const End = styled.div`
     display: inline-flex;
     justify-content: space-between;
     padding-bottom: .5rem;
-    background-color: #ffb300;
+    /* background-color: #ffb300; */
     flex-direction: column;
 `
 

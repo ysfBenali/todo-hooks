@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react';
+import { Actions } from '../reducers/useTodoList';
 import { Task } from './Task';
 import { Link } from 'react-router-dom';
 import CustomButton from '../custom-components/CustomButton';
@@ -29,7 +30,7 @@ const Tasks = ({ todos, filter, searchTerm, visibleTodos }) => {
             </div>
             {(todos.length > 0) ?
                 <div className='delete-state'>
-                    <CustomButton theme={{ bg: '#f03f3f' }} onClick={() => dispatch({ type: 'DELETE_ALL_TODOS' })} > Delete All </CustomButton>
+                    <CustomButton theme={{ bg: '#f03f3f' }} onClick={() => dispatch({ type: Actions.DELETE_ALL_TODOS })} > Delete All </CustomButton>
                 </div> : <div className='empty-state'>
                     <h2>Start your day by adding some tasks !</h2>
                     <Link to='/create'>

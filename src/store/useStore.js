@@ -1,18 +1,9 @@
-import React ,{useEffect} from 'react';
-import useTodoList from '../reducers/useTodoList';
-import useVisibilityFilter from '../reducers/useVisibilityFilter';
+import React, { useEffect } from 'react';
+import { useTodoList } from '../reducers/useTodoList';
+import { useVisibilityFilter } from '../reducers/useVisibilityFilter';
 
 // Equivalent to combineReducers in Redux !
 const useStore = () => {
-    
-    // let initialState = [];
-    // useEffect(() => {
-    //     db.collection('todos').onSnapshot(snapshot => {
-    //         initialState = snapshot.docs.map(doc => doc.data());
-    //         console.log(initialState);
-    
-    //     })
-    // }, [])
 
     const [todos, changeTodos] = useTodoList();
     const [filter, changeFilter] = useVisibilityFilter();
