@@ -1,28 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
-import "react-datepicker/dist/react-datepicker.css";
-import styled, { css } from 'styled-components';
+import { Actions } from '../reducers/useTodoList';
 import DatePicker from 'react-datepicker';
 import convertToTimestamp from '../firebase/convertToTimestamp';
-import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { useForm } from '../custom-hooks/useForm';
 import { useParams } from 'react-router-dom';
 import { TodoContext } from '../App';
-
+import 'react-datepicker/dist/react-datepicker.css';
+import styled, { css } from 'styled-components';
 
 const EditTodo = () => {
     const { dispatch, todos } = useContext(TodoContext);
     const [selectedTodo, setSelectedTodo] = useState({ task: '', type: 'Code', completed: false, date: new Date() });
-    // const [selectedTodo, handleChange] = useForm({ task: '', type: 'Code',completed: false, date: new Date() });
-    // const [date, setStartDate] = useState(new Date());
     const { id } = useParams();
     let history = useHistory();
 
     useEffect(() => {
-        console.log(todos);
         const selectedTodo = todos.find(todo => todo.id === id);
         setSelectedTodo({ ...selectedTodo, date: selectedTodo?.date.toDate() });
-        
     }, [id, todos])
 
     const handleChange = (e) => {
@@ -34,8 +28,8 @@ const EditTodo = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        let date =convertToTimestamp(selectedTodo.date);
-        dispatch({ payload: {...selectedTodo, date: date }, type: 'EDIT_TODO' });
+        let date = convertToTimestamp(selectedTodo.date);
+        dispatch({ payload: { ...selectedTodo, date: date }, type: Actions.EDIT_TODO });
         history.push('/dashboard');
     }
 

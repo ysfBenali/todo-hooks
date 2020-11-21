@@ -1,24 +1,21 @@
 import React, { useState, useContext } from 'react';
-import "react-datepicker/dist/react-datepicker.css";
-import styled, { css } from 'styled-components';
+import { Actions } from '../reducers/useTodoList';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import DatePicker from 'react-datepicker';
 import CustomButton from '../custom-components/CustomButton';
-// import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
-// import { useUID } from 'react-uid';
 import { TodoContext } from '../App';
-
+import styled, { css } from 'styled-components';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const theme = {
-     bg: "#4fc08d"
+    bg: "#4fc08d"
 }
 
 const AddTodo = () => {
     const { dispatch } = useContext(TodoContext);
-    // const uid = useUID();
-    const [values, handleChange] = useForm({ task: '', type: 'code',  completed : false });
+    const [values, handleChange] = useForm({ task: '', type: 'code', completed: false });
     const [date, setStartDate] = useState(new Date());
     let history = useHistory();
 
@@ -26,12 +23,12 @@ const AddTodo = () => {
         event.preventDefault();
         setStartDate(convertToTimestamp(date));
         let createdAt = convertToTimestamp(new Date());
-        dispatch({ payload: { ...values, date, createdAt }, type: 'ADD_TODO' });
+        dispatch({ payload: { ...values, date, createdAt }, type: Actions.ADD_TODO });
         history.push('/dashboard');
 
         // reset();
     }
-    const handleDateChange = (date) =>{
+    const handleDateChange = (date) => {
         setStartDate(date);
     }
     return (

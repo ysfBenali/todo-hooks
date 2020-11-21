@@ -4,6 +4,9 @@ body {
   line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px) / (1600 - 300)));
 }
 
+.App {
+  text-align: center;
+}
 .home {
   display: flex;
   align-items: center;
@@ -36,7 +39,8 @@ body {
   min-height: 8rem;
   } */
   .top h1 {
-    margin: 0 auto;
+    margin: 1em auto;
+    font-size: 1.9em;
   }
 }
 
@@ -82,7 +86,7 @@ h5, h6 {
       width: 80%;
     }
     .empty-state h2 {
-        font-size: 1.5em;
+        font-size: 1.2em;
       }
   }
   @media screen and (max-width: 680px) {

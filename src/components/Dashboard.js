@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
+import { Actions } from '../reducers/useVisibilityFilter';
 import AddCircleButton from '../custom-components/AddCircleButton';
-import styled, { css } from 'styled-components';
 import Tasks from './Tasks';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
 import { TodoContext, FilterContext } from '../App';
+import styled, { css } from 'styled-components';
 
 const theme = {
     bg: '#EA4C12'
@@ -63,14 +64,14 @@ const Dashboard = () => {
     }
     const handleOrderByChange = (e) => {
         setOrderBy(e.target.value);
-        changeFilter({ type: "ORDER_BY", payload: { orderBy: e.target.value, text: searchTerm } })
+        changeFilter({ type: Actions.ORDER_BY, payload: { orderBy: e.target.value, text: searchTerm } })
     }
 
     const handleShow = (e) => {
         if (e.target.value !== show) {
             setShow(e.target.value);
             changeFilter({
-                type: "SET_VISIBILITY_FILTER",
+                type: Actions.SET_VISIBILITY_FILTER,
                 payload: { show: e.target.value, text: searchTerm }
             })
         }

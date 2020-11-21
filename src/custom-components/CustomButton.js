@@ -1,4 +1,4 @@
-import styled,{css} from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const CustomButton = styled.button`
     font-size: 14px;

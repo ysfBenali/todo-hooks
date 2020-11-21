@@ -1,6 +1,15 @@
 import React, { useEffect, useReducer } from 'react';
 import db from '../firebase/firebase';
 
+export const Actions = {
+    INIT_TODOS: "INIT_TODOS",
+    ADD_TODO: "ADD_TODO",
+    DELETE_TODO: "DELETE_TODO",
+    TOGGLE_COMPLETED: "TOGGLE_COMPLETED",
+    DELETE_ALL_TODOS: "DELETE_ALL_TODOS",
+    EDIT_TODO: "EDIT_TODO"
+}
+
 const reducer = (state, action) => {
 
     const { type, payload } = action;
@@ -8,19 +17,19 @@ const reducer = (state, action) => {
     let updatedTodos = [];
 
     switch (type) {
-        case 'ADD_TODO':
+        case Actions.ADD_TODO:
             todosRef.add(payload);
             return [...state, payload];
 
-        case 'DELETE_TODO':
+        case Actions.DELETE_TODO:
             todosRef.doc(payload).delete();
             return state.filter(todo => todo.id !== payload);
 
-        case 'TOGGLE_COMPLETED':
+        case Actions.TOGGLE_COMPLETED:
             let todoRef = todosRef.doc(payload);
             updatedTodos = state.map(todo => {
                 if (todo.id === payload) {
-                     todoRef.update({ completed: !todo.completed });
+                    todoRef.update({ completed: !todo.completed });
                     return {
                         ...todo,
                         completed: !todo.completed
@@ -30,13 +39,13 @@ const reducer = (state, action) => {
             });
             return [...updatedTodos];
 
-        case 'DELETE_ALL_TODOS':
+        case Actions.DELETE_ALL_TODOS:
             state.map(todo =>
                 todosRef.doc(todo.id).delete()
             )
             return [...state];
 
-        case 'EDIT_TODO':
+        case Actions.EDIT_TODO:
             let updateTodo = payload;
             updatedTodos = state.map(todo => {
                 if (todo.id === updateTodo.id) {
@@ -47,8 +56,7 @@ const reducer = (state, action) => {
             });
             return [...state];
 
-        case 'INIT_TODO':
-            console.log("init !!");
+        case Actions.INIT_TODOS:
             return [...payload];
         default:
             return [...state];
@@ -56,15 +64,14 @@ const reducer = (state, action) => {
 
 }
 
-const useTodoList = () => {
+export const useTodoList = () => {
 
     const [todos, changeTodos] = useReducer(reducer, null);
 
     useEffect(() => {
         let unsubscribe = db.collection('todos').onSnapshot(snapshot => {
-            console.log("updated todos !");
             changeTodos({
-                type: 'INIT_TODO',
+                type: Actions.INIT_TODOS,
                 payload: snapshot.docs.map(doc => (
                     {
                         id: doc.id,
@@ -80,5 +87,3 @@ const useTodoList = () => {
 
     return [todos, changeTodos];
 }
-
-export default useTodoList;
