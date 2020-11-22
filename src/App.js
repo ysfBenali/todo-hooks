@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import AddTodo from './components/AddTodo';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import EditTodo from './components/EditTodo';
+import NotFound from './components/NotFound';
 import useStore from './store/useStore';
 import './styles.css';
 
@@ -23,7 +24,6 @@ function App() {
       <StylesProvider injectFirst >
         <div className="App">
           <Router>
-            <Navbar />
             <Switch>
               <Route path='/' exact component={() => <AddTodo />} />
               <Route path='/create' component={() => <AddTodo />} />
@@ -31,6 +31,7 @@ function App() {
                 <EditTodo />
               </Route>
               <Route path='/dashboard' component={() => <Dashboard/>} />
+              <Route path='*' component={() => <NotFound/>} />
             </Switch>
           </Router>
         </div>

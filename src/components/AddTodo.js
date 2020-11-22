@@ -3,6 +3,7 @@ import { Actions } from '../reducers/useTodoList';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import DatePicker from 'react-datepicker';
 import CustomButton from '../custom-components/CustomButton';
+import Navbar from './Navbar';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
 import Alert from './Alert';
@@ -25,7 +26,7 @@ const AddTodo = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let { task, type } = values;
-        
+
         if (!task || !type || !date) {
             setErrorMsg("Fill in all the fields");
         }
@@ -50,6 +51,7 @@ const AddTodo = () => {
 
     return (
         <>
+            <Navbar />
             <form onSubmit={handleSubmit}>
                 <Wrapper>
                     <Input name='task'

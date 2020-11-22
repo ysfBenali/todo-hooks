@@ -4,6 +4,7 @@ import AddCircleButton from '../custom-components/AddCircleButton';
 import Tasks from './Tasks';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
+import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import NProgress from 'react-nprogress';
 import Spinner from 'react-spinkit';
@@ -87,6 +88,7 @@ const Dashboard = () => {
     }
     return (
         <>
+            <Navbar />
             <Link to='/create'>
                 <AddCircleButton color='primary' onClick={() => { setShowForm(!showForm) }}>
                     <AddCircleIcon style={{ fontSize: '3.5rem' }} />
