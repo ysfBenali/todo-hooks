@@ -95,8 +95,8 @@ const Dashboard = () => {
 
             <SearchContainer>
                 <Input type='text' id='text' width='70%' name='searchTerm' placeholder='Search for a task' value={searchTerm} onChange={handleSearchChange} />
-                <Select width='30%' value={orderBy} onChange={handleOrderByChange}>
-                    <option value='' disabled selected >Sort By</option>
+                <Select width='30%' value={orderBy} defaultValue={'Sort By'} onChange={handleOrderByChange}>
+                    <option value='' disabled >Sort By</option>
                     <option value='date'>Date</option>
                     <option value='deadline'>Deadline</option>
                 </Select>
