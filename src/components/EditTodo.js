@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Navbar from './Navbar';
 import Alert from './Alert';
 import { TodoContext, FilterContext } from '../App';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -33,7 +34,7 @@ const EditTodo = () => {
         event.preventDefault();
         let { task, type } = selectedTodo;
         let date = convertToTimestamp(selectedTodo.date);
-        
+
         if (!task || !type || !date) {
             setErrorMsg("Fill in all the fields");
         } else {
@@ -52,6 +53,7 @@ const EditTodo = () => {
 
     return (
         <>
+        <Navbar/>
             <form onSubmit={handleSubmit}>
                 <Wrapper>
                     <Input name='task'

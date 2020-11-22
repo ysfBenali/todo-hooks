@@ -153,3 +153,7 @@ h5, h6 {
 .Overlay h2  {   
   margin-bottom: 3rem;
 }
+
+.not-found {
+  margin: 8em auto;
+}
