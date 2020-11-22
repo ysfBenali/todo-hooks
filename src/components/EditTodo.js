@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Alert from './Alert';
 import { TodoContext, FilterContext } from '../App';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled, { css } from 'styled-components';
@@ -12,6 +13,7 @@ const EditTodo = () => {
     const { dispatch, todos } = useContext(TodoContext);
     const { changeFilter } = useContext(FilterContext);
     const [selectedTodo, setSelectedTodo] = useState({ task: '', type: 'Code', completed: false, date: new Date() });
+    const [errorMsg, setErrorMsg] = useState('');
     const { id } = useParams();
     let history = useHistory();
 
@@ -29,37 +31,50 @@ const EditTodo = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        let { task, type } = selectedTodo;
         let date = convertToTimestamp(selectedTodo.date);
-        dispatch({ payload: { ...selectedTodo, date: date }, type: Actions.EDIT_TODO });
-        changeFilter({
-            type: Actions.SET_VISIBILITY_FILTER,
-            payload: { text: '' }
-        })
-        history.push('/dashboard');
+        
+        if (!task || !type || !date) {
+            setErrorMsg("Fill in all the fields");
+        } else {
+            dispatch({ payload: { ...selectedTodo, date: date }, type: Actions.EDIT_TODO });
+            changeFilter({
+                type: Actions.SET_VISIBILITY_FILTER,
+                payload: { text: '' }
+            })
+            history.push('/dashboard');
+        }
+    }
+
+    const closeModal = () => {
+        setErrorMsg('');
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Wrapper>
-                <Input name='task'
-                    placeholder='Task'
-                    value={selectedTodo.task}
-                    onChange={handleChange}
-                />
-                <Select name='type' value={selectedTodo.type} onChange={handleChange}>
-                    <option value='code'>Code</option>
-                    <option value='design'>Design</option>
-                    <option value='gym'>Gym</option>
-                    <option value='other'>Other</option>
-                </Select>
-                <DatePicker customInput={<Input />}
-                    name='date'
-                    selected={selectedTodo.date}
-                    onChange={handleDateChange}
-                />
-                <Button> Edit Task </Button>
-            </Wrapper>
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                <Wrapper>
+                    <Input name='task'
+                        placeholder='Task'
+                        value={selectedTodo.task}
+                        onChange={handleChange}
+                    />
+                    <Select name='type' value={selectedTodo.type} onChange={handleChange}>
+                        <option value='code'>Code</option>
+                        <option value='design'>Design</option>
+                        <option value='gym'>Gym</option>
+                        <option value='other'>Other</option>
+                    </Select>
+                    <DatePicker customInput={<Input />}
+                        name='date'
+                        selected={selectedTodo.date}
+                        onChange={handleDateChange}
+                    />
+                    <Button> Edit Task </Button>
+                </Wrapper>
+            </form>
+            <Alert alertMsg={errorMsg} closeModal={closeModal} />
+        </>
     )
 }
 

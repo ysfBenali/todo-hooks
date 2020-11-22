@@ -140,3 +140,16 @@ h5, h6 {
 .sk-spinner {
   margin-top: 10vh!important;
 }
+
+.Overlay {
+  position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color:  rgba(0, 0, 0, .65);
+}
+
+.Overlay h2  {   
+  margin-bottom: 3rem;
+}

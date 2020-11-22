@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import CustomButton from '../custom-components/CustomButton';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
+import Alert from './Alert';
 import { TodoContext, FilterContext } from '../App';
 import styled, { css } from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,45 +19,60 @@ const AddTodo = () => {
     const { changeFilter } = useContext(FilterContext);
     const [values, handleChange] = useForm({ task: '', type: 'code', completed: false });
     const [date, setStartDate] = useState(new Date());
+    const [errorMsg, setErrorMsg] = useState('');
     let history = useHistory();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setStartDate(convertToTimestamp(date));
-        let createdAt = convertToTimestamp(new Date());
-        dispatch({ payload: { ...values, date, createdAt }, type: Actions.ADD_TODO });
-        changeFilter({
-            type: Actions.SET_VISIBILITY_FILTER,
-            payload: { text: '' }
-        })
-        history.push('/dashboard');
-
-        // reset();
+        let { task, type } = values;
+        
+        if (!task || !type || !date) {
+            setErrorMsg("Fill in all the fields");
+        }
+        else {
+            setStartDate(convertToTimestamp(date));
+            let createdAt = convertToTimestamp(new Date());
+            dispatch({ payload: { ...values, date, createdAt }, type: Actions.ADD_TODO });
+            changeFilter({
+                type: Actions.SET_VISIBILITY_FILTER,
+                payload: { text: '' }
+            })
+            history.push('/dashboard');
+        }
     }
     const handleDateChange = (date) => {
         setStartDate(date);
     }
+
+    const closeModal = () => {
+        setErrorMsg('');
+    }
+
     return (
-        <form onSubmit={handleSubmit}>
-            <Wrapper>
-                <Input name='task'
-                    placeholder='Task'
-                    value={values.task}
-                    onChange={handleChange} />
-                <Select name='type' value={values.type} onChange={handleChange} >
-                    <option value='code'>Code</option>
-                    <option value='design'>Design</option>
-                    <option value='gym'>Gym</option>
-                    <option value='other'>Other</option>
-                </Select>
-                <DatePicker customInput={<Input />}
-                    name='date'
-                    selected={date}
-                    onChange={handleDateChange}
-                />
-                <CustomButton theme={theme}> Add Task </CustomButton>
-            </Wrapper>
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                <Wrapper>
+                    <Input name='task'
+                        placeholder='Task'
+                        value={values.task}
+                        onChange={handleChange} />
+                    <Select name='type' value={values.type} onChange={handleChange} >
+                        <option value='code'>Code</option>
+                        <option value='design'>Design</option>
+                        <option value='gym'>Gym</option>
+                        <option value='other'>Other</option>
+                    </Select>
+                    <DatePicker customInput={<Input />}
+                        name='date'
+                        selected={date}
+                        onChange={handleDateChange}
+                    />
+                    <CustomButton theme={theme}> Add Task </CustomButton>
+                </Wrapper>
+            </form>
+            <Alert alertMsg={errorMsg} closeModal={closeModal} />
+
+        </>
     )
 }
 
