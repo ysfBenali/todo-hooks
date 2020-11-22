@@ -4,12 +4,13 @@ import DatePicker from 'react-datepicker';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { TodoContext } from '../App';
+import { TodoContext, FilterContext } from '../App';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled, { css } from 'styled-components';
 
 const EditTodo = () => {
     const { dispatch, todos } = useContext(TodoContext);
+    const { changeFilter } = useContext(FilterContext);
     const [selectedTodo, setSelectedTodo] = useState({ task: '', type: 'Code', completed: false, date: new Date() });
     const { id } = useParams();
     let history = useHistory();
@@ -30,6 +31,10 @@ const EditTodo = () => {
         event.preventDefault();
         let date = convertToTimestamp(selectedTodo.date);
         dispatch({ payload: { ...selectedTodo, date: date }, type: Actions.EDIT_TODO });
+        changeFilter({
+            type: Actions.SET_VISIBILITY_FILTER,
+            payload: { text: '' }
+        })
         history.push('/dashboard');
     }
 
