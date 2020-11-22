@@ -119,3 +119,7 @@ h5, h6 {
 .delete-state{
   margin: 2em auto;
 }
+
+.sk-spinner {
+  margin-top: 10vh!important;
+}

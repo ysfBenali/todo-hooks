@@ -3,7 +3,7 @@ import React from 'react';
 const Navbar = () => {
     return (
         <div className="top">
-            <h1>Todo for today</h1>
+            <h1>Todos for today</h1>
         </div>
     )
 }

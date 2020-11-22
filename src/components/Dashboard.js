@@ -5,6 +5,7 @@ import Tasks from './Tasks';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
+import Spinner from 'react-spinkit';
 import { TodoContext, FilterContext } from '../App';
 import styled, { css } from 'styled-components';
 
@@ -99,7 +100,7 @@ const Dashboard = () => {
             </FilterContainer>
 
             {
-                (todos) ? <Tasks {...{ todos, filter, searchTerm, visibleTodos }} /> : null
+                (todos) ? <Tasks {...{ todos, filter, searchTerm, visibleTodos }} /> : <Spinner name="line-scale-pulse-out" color="#EA4C12"/>
             }
         </>
     )
