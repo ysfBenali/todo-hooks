@@ -5,10 +5,8 @@ import DatePicker from 'react-datepicker';
 import CustomButton from '../custom-components/CustomButton';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
-import NProgress from 'react-nprogress';
-import { TodoContext } from '../App';
+import { TodoContext, FilterContext } from '../App';
 import styled, { css } from 'styled-components';
-import 'react-nprogress/nprogress.css'
 import 'react-datepicker/dist/react-datepicker.css';
 
 const theme = {
@@ -17,19 +15,20 @@ const theme = {
 
 const AddTodo = () => {
     const { dispatch } = useContext(TodoContext);
+    const { changeFilter } = useContext(FilterContext);
     const [values, handleChange] = useForm({ task: '', type: 'code', completed: false });
     const [date, setStartDate] = useState(new Date());
     let history = useHistory();
 
-    useEffect(() => {
-        // NProgress.set(0.1);
-    }, [])
-  
     const handleSubmit = (event) => {
         event.preventDefault();
         setStartDate(convertToTimestamp(date));
         let createdAt = convertToTimestamp(new Date());
         dispatch({ payload: { ...values, date, createdAt }, type: Actions.ADD_TODO });
+        changeFilter({
+            type: Actions.SET_VISIBILITY_FILTER,
+            payload: { text: '' }
+        })
         history.push('/dashboard');
 
         // reset();
