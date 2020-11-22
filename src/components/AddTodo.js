@@ -1,12 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Actions } from '../reducers/useTodoList';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import DatePicker from 'react-datepicker';
 import CustomButton from '../custom-components/CustomButton';
 import { useHistory } from 'react-router-dom';
 import { useForm } from '../custom-hooks/useForm';
+import NProgress from 'react-nprogress';
 import { TodoContext } from '../App';
 import styled, { css } from 'styled-components';
+import 'react-nprogress/nprogress.css'
 import 'react-datepicker/dist/react-datepicker.css';
 
 const theme = {
@@ -19,6 +21,10 @@ const AddTodo = () => {
     const [date, setStartDate] = useState(new Date());
     let history = useHistory();
 
+    useEffect(() => {
+        // NProgress.set(0.1);
+    }, [])
+  
     const handleSubmit = (event) => {
         event.preventDefault();
         setStartDate(convertToTimestamp(date));

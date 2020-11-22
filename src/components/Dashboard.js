@@ -5,15 +5,23 @@ import Tasks from './Tasks';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CustomButton from '../custom-components/CustomButton';
 import { Link } from 'react-router-dom';
+import NProgress from 'react-nprogress';
 import Spinner from 'react-spinkit';
 import { TodoContext, FilterContext } from '../App';
 import styled, { css } from 'styled-components';
+import 'react-nprogress/nprogress.css';
 
 const theme = {
     bg: '#EA4C12'
 }
 const Dashboard = () => {
+    NProgress.set(0.5);
 
+    useEffect(() => {
+        NProgress.done();
+        return () => {
+        }
+    })
     const { dispatch, todos } = useContext(TodoContext);
     const { changeFilter, filter } = useContext(FilterContext);
 
@@ -100,7 +108,7 @@ const Dashboard = () => {
             </FilterContainer>
 
             {
-                (todos) ? <Tasks {...{ todos, filter, searchTerm, visibleTodos }} /> : <Spinner name="line-scale-pulse-out" color="#EA4C12"/>
+                (todos) ? <Tasks {...{ todos, filter, searchTerm, visibleTodos }} /> : <Spinner name="line-scale-pulse-out" color="#EA4C12" />
             }
         </>
     )

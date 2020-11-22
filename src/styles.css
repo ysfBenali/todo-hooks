@@ -120,6 +120,23 @@ h5, h6 {
   margin: 2em auto;
 }
 
+
+#nprogress .bar {
+  top:0!important;
+  background: #FFBB00 !important;
+  height: 6px !important;
+
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #FFBB00, 0 0 5px #FFBB00;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #FFBB00;
+  border-left-color: #FFBB00;
+}
+
 .sk-spinner {
   margin-top: 10vh!important;
 }
