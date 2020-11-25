@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { StylesProvider } from '@material-ui/styles';
 
 const colorType= {
     code : 'purple',

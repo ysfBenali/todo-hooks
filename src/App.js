@@ -1,6 +1,5 @@
 import React from 'react';
 import { StylesProvider } from '@material-ui/styles';
-import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import AddTodo from './components/AddTodo';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';

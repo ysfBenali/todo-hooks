@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { useTodoList } from '../reducers/useTodoList';
 import { useVisibilityFilter } from '../reducers/useVisibilityFilter';
 
