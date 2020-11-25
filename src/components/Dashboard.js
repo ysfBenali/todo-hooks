@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Actions } from '../reducers/useVisibilityFilter';
 import AddCircleButton from '../custom-components/AddCircleButton';
 import Tasks from './Tasks';
@@ -23,16 +23,14 @@ const Dashboard = () => {
         return () => {
         }
     })
-    const { dispatch, todos } = useContext(TodoContext);
+    const { todos } = useContext(TodoContext);
     const { changeFilter, filter } = useContext(FilterContext);
 
     const [showForm, setShowForm] = useState(false);
-
+    
     const [searchTerm, setSearchTerm] = useState(filter.text);
     const [orderBy, setOrderBy] = useState(filter.orderBy);
     const [show, setShow] = useState(filter.show);
-
-    const { text } = filter;
 
     const visibleTodos = (list, { orderBy, show }, searchTerm) => {
 
@@ -97,7 +95,7 @@ const Dashboard = () => {
 
             <SearchContainer>
                 <Input type='text' id='text' width='70%' name='searchTerm' placeholder='Search for a task' value={searchTerm} onChange={handleSearchChange} />
-                <Select width='30%' value={orderBy} defaultValue={'Sort By'} onChange={handleOrderByChange}>
+                <Select width='30%' value={orderBy} onChange={handleOrderByChange}>
                     <option value='' disabled >Sort By</option>
                     <option value='date'>Date</option>
                     <option value='deadline'>Deadline</option>

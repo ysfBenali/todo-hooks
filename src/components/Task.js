@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Actions } from '../reducers/useTodoList';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
@@ -9,7 +9,7 @@ import Badge from '../custom-components/Badge';
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { TodoContext } from '../App';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Task = ({ index, todo }) => {
     const { dispatch } = useContext(TodoContext);
@@ -35,8 +35,8 @@ export const Task = ({ index, todo }) => {
                 </Bottom>
             </Middle>
             <End>
-                <IconButton >
-                    <ClearIcon style={{ alignSelf: 'flex-start', fontSize: 35, color: 'red' }} onClick={() => dispatch({ type: Actions.DELETE_TODO, payload: todo.id })} />
+                <IconButton onClick={() => dispatch({ type: Actions.DELETE_TODO, payload: todo.id })} >
+                    <ClearIcon style={{ alignSelf: 'flex-start', fontSize: 35, color: 'red' }}/>
                 </IconButton>
                 <Link to={`/edit/${todo.id}`}>
                     <div style={{ alignSelf: 'flex-end', color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: Actions.EDIT_TODO, payload: todo })}>
