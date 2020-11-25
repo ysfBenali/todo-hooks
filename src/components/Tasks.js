@@ -5,22 +5,11 @@ import { Link } from 'react-router-dom';
 import CustomButton from '../custom-components/CustomButton';
 import { TodoContext } from '../App';
 
-const theme = {
-    bg_add: "#4fc08d",
-    bg_del: "#f03f3f"
-}
-
 const Tasks = ({ todos, filter, searchTerm, visibleTodos }) => {
     const { dispatch } = useContext(TodoContext);
 
     return (
         <>
-            {/* <div className='tasks'>
-                {searchTerm.length < 1 ?
-                    visibleTodos(todos, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
-                    : visibleTodos(filterDisplay, filter).map((todo, index) => <Task key={index} index={index} todo={todo} />)
-                }
-            </div> */}
             <div className='tasks'>
                 {
                     visibleTodos(todos, filter, searchTerm).map((todo, index) =>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Actions } from '../reducers/useTodoList';
 import convertToTimestamp from '../firebase/convertToTimestamp';
 import DatePicker from 'react-datepicker';
