@@ -14,8 +14,7 @@ body {
 
 .top {
   display: flex;
-
-  background-color: #00c3ff;
+  background-color: #1abc9c;
   color: #ffff;
   text-align: center;
   height: 35vh;
@@ -34,10 +33,6 @@ body {
 }
 
 @media screen and (max-width: 680px) {
-  /* .top {
-  height: 1vh;
-  min-height: 8rem;
-  } */
   .top h1 {
     margin: 1em auto;
     font-size: 1.9em;
@@ -56,24 +51,15 @@ h5, h6 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 60%;
   margin: 0 auto;
-
-  /* box-sizing: content-box; */
-  /* border-radius:6px;
-    -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75); 
-    */
-
-  /* @media (max-width: 680px) {
-        width: 85%;
-        /* min-width: 85%; */
-  /* height: 25%; */
-  /* transform: translate(-50%, -50%);  
-     }  */
+  width: 60%;
 }
 
+@media (max-width: 680px) {
+  .tasks{
+    padding-top: 6em;
+  }
+}
 .empty-state{
     margin : 3rem auto;
 }

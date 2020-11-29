@@ -12,7 +12,7 @@ import styled, { css } from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const theme = {
-    bg: "#4fc08d"
+    bg: "#1abc9c"
 }
 
 const AddTodo = () => {
@@ -81,8 +81,6 @@ const AddTodo = () => {
 export const Wrapper = styled.div`
     position: absolute;
     left: 50%;
-    // top:30%;
-    // top : 9em;
 
     transform: translateY(-13%) translateX(-50%);
     background-color: white;
