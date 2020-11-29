@@ -23,7 +23,7 @@ const Tasks = ({ todos, filter, searchTerm, visibleTodos }) => {
                 </div> : <div className='empty-state'>
                     <h2>Start your day by adding some tasks !</h2>
                     <Link to='/create'>
-                        <CustomButton theme={{ bg: '#4fc08d' }}> Add new Task </CustomButton>
+                        <CustomButton theme={{ bg: '#1abc9c' }}> Add new Task </CustomButton>
                     </Link>
                 </div>
             }

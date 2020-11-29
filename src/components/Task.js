@@ -66,7 +66,7 @@ const SingleTask = styled.div`
     border-radius:6px;
     -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
     transition: transform 450ms;
     background-color: ${props => props.completed && '#e0dede'};
 
@@ -80,13 +80,13 @@ const SingleTask = styled.div`
      }
      
      &:hover {
-        transform: scale(1.08);
+        box-shadow: 0 8px 26px 0 rgba(0,0,0,.09);
+        transform: scale(1.03);
     }
 `
 const Start = styled.div`
     display: flex;
     flex: 1;
-     /* background-color: red; */
     align-items: center;
     justify-content: center;
 `
@@ -95,11 +95,7 @@ const Middle = styled.div`
     flex: 5;
     flex-direction: column;
     justify-content: center;
-
     align-items: flex-start;
-     /* background-color: green; */
-    /* margin-bottom: 1rem; */
-
     word-break:break-all;
 `
 const Top = styled.span`
@@ -114,15 +110,12 @@ const Top = styled.span`
 const Bottom = styled.span`
     display: flex;
     flex:1;
-     /* background-color: gray; */
     align-items: center;
-    /* margin-bottom: 1em; */
  `
 const End = styled.div`
     display: inline-flex;
     justify-content: space-between;
     padding-bottom: .5rem;
-    /* background-color: #ffb300; */
     flex-direction: column;
 `
 

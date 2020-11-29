@@ -1,19 +1,15 @@
 import styled from 'styled-components';
 
 const colorType= {
-    code : 'purple',
-    design : 'green',
-    gym : 'orange',
-    other : 'black'
+    code : '#706fd3',
+    design : '#1abc9c',
+    gym : '#fbc531',
+    other : '#e74c3c'
  };
 
 
 export default styled.span`
     background-color : ${props => colorType[props.type]};
-    /* margin: 0 auto; */
-    /* font-size: .9em; */
-    /* align-items:center; */
-    /* padding: 10px; */
     width: 4em;
     justify-content:center;
     font-size: medium;

@@ -13,16 +13,11 @@ import styled, { css } from 'styled-components';
 import 'react-nprogress/nprogress.css';
 
 const theme = {
-    bg: '#EA4C12'
+    bg: '#1f97fa'
 }
-const Dashboard = () => {
-    NProgress.set(0.5);
 
-    useEffect(() => {
-        NProgress.done();
-        return () => {
-        }
-    })
+const Dashboard = () => {
+
     const { todos } = useContext(TodoContext);
     const { changeFilter, filter } = useContext(FilterContext);
 
@@ -31,6 +26,14 @@ const Dashboard = () => {
     const [searchTerm, setSearchTerm] = useState(filter.text);
     const [orderBy, setOrderBy] = useState(filter.orderBy);
     const [show, setShow] = useState(filter.show);
+
+    NProgress.set(0.5);
+
+    useEffect(() => {
+        NProgress.done();
+        return () => {
+        }
+    })
 
     const visibleTodos = (list, { orderBy, show }, searchTerm) => {
 
@@ -88,7 +91,7 @@ const Dashboard = () => {
         <>
             <Navbar />
             <Link to='/create'>
-                <AddCircleButton color='primary' onClick={() => { setShowForm(!showForm) }}>
+                <AddCircleButton theme={{bg : '#e84118'}} onClick={() => { setShowForm(!showForm) }}>
                     <AddCircleIcon style={{ fontSize: '3.5rem' }} />
                 </AddCircleButton>
             </Link>
@@ -115,59 +118,54 @@ const Dashboard = () => {
 }
 
 const SearchContainer = styled.div`
-position: absolute;
-left: 50%;
-// top:30%;
-// top : 9em;
+    position: absolute;
+    left: 50%;
 
-transform: translateY(-13%) translateX(-50%);
-background-color: white;
+    transform: translateY(-13%) translateX(-50%);
+    background-color: white;
 
-display: flex;
-flex-wrap: wrap;
-align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 
-width: 30%;    
-// margin : 0 auto;
-margin-top : -2rem;
-box-sizing: content-box;
-padding: 2rem;
-@media (max-width: 1200px) {
-    width: 70%;    
-   // flex-direction: column;
-  //  justify-content: space-evenly;
-  //  min-height: 400px;
-}
-// padding-top: 1rem;
+    width: 30%;    
+    margin-top : -2rem;
+    box-sizing: content-box;
+    padding: 2rem;
+    @media (max-width: 1200px) {
+        width: 70%;    
+    }
 
-border-radius:6px;
--webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    border-radius:6px;
+    -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
 `
-
 const baseInputStyles = css`
-display: inline-block;    
-width: ${props => props.width || '100%'};
-box-sizing : border-box;
-height: 2.8rem !important;
-border-radius: 0.2em;
-border: #b5b1b1 1px solid;
-outline: none;
-padding: 0.75em 1.5em;
-// @media (max-width: 1200px) {
-//    width: 90%!important;
-//    margin: 0 auto; 
-// }
-:focus {
-    border : #00C3FF 1px solid;
-}
+    display: inline-block;    
+    width: ${props => props.width || '100%'};
+    box-sizing : border-box;
+    height: 2.8rem !important;
+    border-radius: 0.2em;
+    border: #b5b1b1 1px solid;
+    outline: none;
+    padding: 0.75em 1.5em;
+
+    :focus {
+        border : #0abde3 1px solid;
+    }
 `
 const Input = styled.input`
-${baseInputStyles}
+    ${baseInputStyles}
+    @media (max-width: 680px){
+         width: 100%; 
+    }
 `
 const Select = styled.select`
-${baseInputStyles}
+    ${baseInputStyles}
+    @media (max-width: 680px){
+         display: none; 
+    }
 `
 const FilterContainer = styled.div`
     width : 60%;
@@ -176,6 +174,9 @@ const FilterContainer = styled.div`
     justify-content: space-between;
     @media (max-width: 1200px) {
         width : 100%;
+    }
+    @media (max-width: 680px){
+         display: none; 
     }
 `
 
