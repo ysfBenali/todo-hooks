@@ -20,6 +20,6 @@ const CustomButton = styled.button`
         background: ${props => props.theme.bg};
         outline: none;
     }
-    ${parent => parent.checked && css`color: #fff; outline: none;background: #EA4C12`}
+    ${parent => parent.checked && css`color: #fff; outline: none;background:${props => props.theme.bg}`}
 `
 export default CustomButton;

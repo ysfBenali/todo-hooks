@@ -19,7 +19,7 @@ const EditTodo = () => {
     let history = useHistory();
 
     useEffect(() => {
-        const selectedTodo = todos.find(todo => todo.id === id);
+        const selectedTodo = todos?.find(todo => todo.id === id);
         setSelectedTodo({ ...selectedTodo, date: selectedTodo?.date.toDate() });
     }, [id, todos])
 
@@ -83,9 +83,7 @@ const EditTodo = () => {
 const Wrapper = styled.div`
     position: absolute;
     left: 50%;
-    // top:30%;
-    // top : 9em;
-
+    
     transform: translateY(-13%) translateX(-50%);
     background-color: white;
 

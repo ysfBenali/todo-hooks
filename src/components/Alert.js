@@ -18,7 +18,7 @@ const customStyles = {
 };
 
 const theme = {
-    bg: "#4fc08d"
+    bg: "#1abc9c"
 }
 
 const Alert = ({ alertMsg, closeModal }) => {

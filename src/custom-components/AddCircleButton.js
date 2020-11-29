@@ -1,15 +1,13 @@
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 
-export default styled(IconButton)
-    `
-    color: #EA4C12;
+export default styled(IconButton)`
+    color:  ${props => props.theme.bg};
     background-color: #ffff;
     position: absolute;
     display: block!important;
     left: 80%;
     transform: translateY(-50%) translateX(-50%);
-
     &:hover {
         background-color: #ffff;
     }
@@ -21,8 +19,7 @@ export default styled(IconButton)
         left: 95%;
         bottom : 0%;
         padding: 1px;
-      }
-      @media (max-width: 680px){
+    }
+    @media (max-width: 680px){
         left: 85%;
-      }
-`;
+    }`;
