@@ -15,7 +15,7 @@ import { TodoContext } from '../App';
 export const Task = ({ index, todo }) => {
     const { dispatch } = useContext(TodoContext);
 
-    const [props, set, stop] = useSpring(() => ({ opacity: 1 }))
+    const [props, set] = useSpring(() => ({ opacity: 1 }))
 
     const deleteSingleTask = () => {
         set({ opacity: 0.1, transition: 'all 0.4s ease-out' })

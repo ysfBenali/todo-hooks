@@ -8,12 +8,13 @@ const customStyles = {
         left: '50%',
         right: 'auto',
         bottom: 'auto',
-        marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        padding: '3rem 8rem',
+        textAlign: 'center',
         borderRadius: '10px',
         border: 'none',
-        textAlign: 'center'
+        maxWidth: 'calc(100% - 80px)',
+        maxHeight: 'calc(100 % - 80px)',
+        width: '600px'
     }
 };
 

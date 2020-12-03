@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const CustomButton = styled.button`
-    font-size: 14px;
+    font-size: 1rem;
     margin: .5em auto;
     margin-bottom : 1.5rem;
     border-radius: 2em;
@@ -16,7 +16,7 @@ const CustomButton = styled.button`
     border: ${props => props.theme.bg} 2.9px solid;
     transition: 250ms ease-out;
     &:hover, &:focus {
-        color: #fff;
+        color: #ffff;
         background: ${props => props.theme.bg};
         outline: none;
     }
