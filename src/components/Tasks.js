@@ -7,13 +7,12 @@ import { TodoContext } from '../App';
 
 const Tasks = ({ todos, filter, searchTerm, visibleTodos }) => {
     const { dispatch } = useContext(TodoContext);
-
     return (
         <>
             <div className='tasks'>
                 {
                     visibleTodos(todos, filter, searchTerm).map((todo, index) =>
-                        <Task key={index} index={index} todo={todo} />
+                        <Task todo={todo} />
                     )
                 }
             </div>

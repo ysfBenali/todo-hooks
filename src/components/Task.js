@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Actions } from '../reducers/useTodoList';
+import styled from 'styled-components';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
@@ -8,14 +9,22 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Badge from '../custom-components/Badge';
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { useSpring, animated } from 'react-spring';
 import { TodoContext } from '../App';
-import styled from 'styled-components';
 
 export const Task = ({ index, todo }) => {
     const { dispatch } = useContext(TodoContext);
 
+    const [props, set, stop] = useSpring(() => ({ opacity: 1 }))
+
+    const deleteSingleTask = () => {
+        set({ opacity: 0.1, transition: 'all 0.4s ease-out' })
+        setTimeout(() => dispatch({ type: Actions.DELETE_TODO, payload: todo.id })
+            , 300)
+    }
+   
     return (
-        <SingleTask completed={todo.completed}>
+        <SingleTask style={props} completed={todo.completed}>
             <Start>
                 <Checkbox
                     icon={<CircleUnchecked style={{ fontSize: 35, color: 'green' }} />}
@@ -35,8 +44,8 @@ export const Task = ({ index, todo }) => {
                 </Bottom>
             </Middle>
             <End>
-                <IconButton onClick={() => dispatch({ type: Actions.DELETE_TODO, payload: todo.id })} >
-                    <ClearIcon style={{ alignSelf: 'flex-start', fontSize: 35, color: 'red' }}/>
+                <IconButton onClick={deleteSingleTask} >
+                    <ClearIcon style={{ alignSelf: 'flex-start', fontSize: 35, color: 'red' }} />
                 </IconButton>
                 <Link to={`/edit/${todo.id}`}>
                     <div style={{ alignSelf: 'flex-end', color: '#1f97fa', fontSize: 25 }} onClick={() => dispatch({ type: Actions.EDIT_TODO, payload: todo })}>
@@ -48,10 +57,10 @@ export const Task = ({ index, todo }) => {
     )
 }
 
-const SingleTask = styled.div`
+const SingleTask = styled(animated.div)`
     position: relative; 
     display: flex;
-    
+    opacity:  1;
     flex-direction: row;
     overflow: hidden;
     flex-flow: row ;
@@ -67,9 +76,7 @@ const SingleTask = styled.div`
     -webkit-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.75);
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
-    transition: transform 450ms;
     background-color: ${props => props.completed && '#e0dede'};
-
     @media (max-width: 1200px) {
         width: 80%;
      }
@@ -82,6 +89,7 @@ const SingleTask = styled.div`
      &:hover {
         box-shadow: 0 8px 26px 0 rgba(0,0,0,.09);
         transform: scale(1.03);
+        transition: transform 450ms;
     }
 `
 const Start = styled.div`
