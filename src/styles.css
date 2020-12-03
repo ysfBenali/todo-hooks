@@ -3,7 +3,11 @@ body {
   font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
   line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px) / (1600 - 300)));
 }
-
+@media (max-width: 300px) {
+  body {
+    zoom: 0.3;
+  }
+}
 .App {
   text-align: center;
 }
@@ -17,8 +21,9 @@ body {
   background-color: #1abc9c;
   color: #ffff;
   text-align: center;
+  width:100%;
   height: 35vh;
-  min-height: 10rem;
+  min-height: 16rem;
 }
 
 .top svg {
@@ -34,12 +39,13 @@ body {
 
 @media screen and (max-width: 680px) {
   .top h1 {
-    margin: 1em auto;
-    font-size: 1.9em;
+    margin: 1.5em auto;
+    font-size: 2.1em;
   }
 }
 
-h5, h6 {
+h5,
+h6 {
   margin: 0 auto;
 }
 
@@ -56,30 +62,30 @@ h5, h6 {
 }
 
 @media (max-width: 680px) {
-  .tasks{
+  .tasks {
     padding-top: 6em;
   }
 }
-.empty-state{
-    margin : 3rem auto;
+.empty-state {
+  margin: 3rem auto;
 }
 .empty-state h2 {
   font-size: 1em;
 }
 
 @media screen and (max-width: 1200px) {
-    .tasks {
-      width: 80%;
-    }
-    .empty-state h2 {
-        font-size: 1.2em;
-      }
+  .tasks {
+    width: 80%;
   }
-  @media screen and (max-width: 680px) {
-    .tasks {
-      width: 85%;
-    }
+  .empty-state h2 {
+    font-size: 1.2em;
   }
+}
+@media screen and (max-width: 680px) {
+  .tasks {
+    width: 85%;
+  }
+}
 
 .svg_icons {
   transform: scale(1.8);
@@ -102,41 +108,39 @@ h5, h6 {
   margin: 0em auto;
 }
 
-.delete-state{
+.delete-state {
   margin: 2em auto;
 }
 
-
 #nprogress .bar {
-  top:0!important;
-  background: #FFBB00 !important;
+  top: 0 !important;
+  background: #ffbb00 !important;
   height: 6px !important;
-
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px #FFBB00, 0 0 5px #FFBB00;
+  box-shadow: 0 0 10px #ffbb00, 0 0 5px #ffbb00;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: #FFBB00;
-  border-left-color: #FFBB00;
+  border-top-color: #ffbb00;
+  border-left-color: #ffbb00;
 }
 
 .sk-spinner {
-  margin-top: 10vh!important;
+  margin-top: 10vh !important;
 }
 
 .Overlay {
   position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    background-color:  rgba(0, 0, 0, .65);
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
-.Overlay h2  {   
+.Overlay h2 {
   margin-bottom: 3rem;
 }
 
