@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 
         case Actions.DELETE_TODO:
             todosRef.doc(payload).delete();
-            return state.filter(todo => todo.id !== payload);
+            return state.filter(todo => todo.id !== payload)
 
         case Actions.TOGGLE_COMPLETED:
             let todoRef = todosRef.doc(payload);

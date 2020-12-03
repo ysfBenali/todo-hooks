@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { TodoContext, FilterContext } from '../App';
 import { Actions } from '../reducers/useVisibilityFilter';
 import AddCircleButton from '../custom-components/AddCircleButton';
 import Tasks from './Tasks';
@@ -8,7 +9,6 @@ import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import NProgress from 'react-nprogress';
 import Spinner from 'react-spinkit';
-import { TodoContext, FilterContext } from '../App';
 import styled, { css } from 'styled-components';
 import 'react-nprogress/nprogress.css';
 
