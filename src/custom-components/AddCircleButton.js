@@ -21,5 +21,5 @@ export default styled(IconButton)`
         padding: 1px;
     }
     @media (max-width: 680px){
-        left: 85%;
+        left: 90%;
     }`;
