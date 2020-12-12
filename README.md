@@ -1,3 +1,7 @@
+# A todo app with React Hooks - [Demo](https://todo-hooks-eight.vercel.app/dashboard)
+
+[![react](https://img.shields.io/badge/react-16.13.1-blue?style=flat-square&logo=react)](https://github.com/facebook/create-react-app) [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
